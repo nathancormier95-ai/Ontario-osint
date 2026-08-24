@@ -5,6 +5,6 @@
 - [x] Verify and curate the official Ontario resource links used by the site.
 - [x] Implement the privacy-first name, public-profile, and email-format workflows.
 - [x] Implement the configurable PayPal membership checkout interface and setup documentation.
-- [ ] Add GitHub Pages build and deployment configuration.
-- [ ] Test the production build and representative responsive views.
-- [ ] Commit and push the completed website source, documentation, and deployment configuration.
+- [x] Add GitHub Pages build and deployment configuration.
+- [x] Test the production build and representative responsive views.
+- [x] Commit and push the completed website source, documentation, and deployment configuration.

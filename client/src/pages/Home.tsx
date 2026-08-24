@@ -43,6 +43,25 @@ const socialPlatforms = [
   { label: "Facebook", domain: "facebook.com" },
 ];
 
+const visualAssets = {
+  hero:
+    import.meta.env.BASE_URL === "/"
+      ? "/manus-storage/ontario-research-hero_171e7fca.jpg"
+      : `${import.meta.env.BASE_URL}assets/ontario-research-hero.jpg`,
+  sourceMap:
+    import.meta.env.BASE_URL === "/"
+      ? "/manus-storage/ontario-source-map_203feff5.jpg"
+      : `${import.meta.env.BASE_URL}assets/ontario-source-map.jpg`,
+  workbench:
+    import.meta.env.BASE_URL === "/"
+      ? "/manus-storage/research-workbench_f864f589.jpg"
+      : `${import.meta.env.BASE_URL}assets/research-workbench.jpg`,
+  logo:
+    import.meta.env.BASE_URL === "/"
+      ? "/manus-storage/ontario-research-logo_38e0db65.png"
+      : `${import.meta.env.BASE_URL}assets/ontario-research-logo.png`,
+};
+
 function openExternal(url: string) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
@@ -123,7 +142,7 @@ export default function Home() {
               aria-label="Return to the top of Ontario Research Hub"
             >
               <img
-                src="/manus-storage/ontario-research-logo_38e0db65.png"
+                src={visualAssets.logo}
                 alt="Ontario Research Hub compass lens mark"
                 className="h-12 w-12 object-contain transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-105"
               />
@@ -185,7 +204,7 @@ export default function Home() {
         <main className="min-w-0 flex-1" id="top">
           <section className="relative overflow-hidden border-b border-[#d7d0c4] bg-[#dce9e5]">
             <img
-              src="/manus-storage/ontario-research-hero_171e7fca.jpg"
+              src={visualAssets.hero}
               alt="Editorial research desk with Ontario map materials and magnifying lens"
               className="absolute inset-0 h-full w-full object-cover object-center opacity-85 mix-blend-multiply"
             />
@@ -338,7 +357,7 @@ export default function Home() {
               </div>
 
               <aside className="relative overflow-hidden border border-[#b3c9c3] bg-[#dce9e5] p-6 shadow-[6px_6px_0_rgba(15,89,116,0.12)] xl:mt-14">
-                <img src="/manus-storage/research-workbench_f864f589.jpg" alt="Research notebook materials arranged on a desk" className="absolute inset-0 h-full w-full object-cover opacity-15 mix-blend-multiply" />
+                <img src={visualAssets.workbench} alt="Research notebook materials arranged on a desk" className="absolute inset-0 h-full w-full object-cover opacity-15 mix-blend-multiply" />
                 <div className="relative">
                   <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f5974]">Before you search</p>
                   <h3 className="mt-4 font-display text-3xl leading-none tracking-[-0.045em] text-[#18393f]">Keep your working record clean.</h3>
@@ -387,7 +406,7 @@ export default function Home() {
           <section id="responsible-use" className="scroll-mt-6 bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="relative min-h-[370px] overflow-hidden border border-[#d2cabd] bg-[#ebe6da]">
-                <img src="/manus-storage/ontario-source-map_203feff5.jpg" alt="Archival map materials and source-stamp tokens" className="absolute inset-0 h-full w-full object-cover" />
+                <img src={visualAssets.sourceMap} alt="Archival map materials and source-stamp tokens" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute bottom-0 left-0 max-w-sm bg-[#f6f2e9]/95 p-5 backdrop-blur-sm"><p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#0f5974]">Method matters</p><p className="mt-2 text-sm leading-6 text-[#3c514f]">Public availability does not erase privacy, context, copyright, or publication limits.</p></div>
               </div>
               <div>
