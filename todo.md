@@ -38,3 +38,6 @@
 - [x] Add a user-owned citation-log schema and protected synchronization procedures.
 - [x] Add consent controls, sync status, and disconnect/delete options to the citation-log interface.
 - [x] Test, publish, commit, and push the consent-based citation-sync feature to `nathancormier95-ai/Ontario-osint`.
+- [x] Inspect the uploaded OSINT scanner archive and classify each tool by dependencies, privacy risks, and lawful integration fit.
+- [x] Adapt approved archive tools to the Ontario Research Hub’s source-led, privacy-first workflows.
+- [x] Test, publish, commit, and push the approved tool integrations to `nathancormier95-ai/Ontario-osint`.

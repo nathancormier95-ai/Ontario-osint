@@ -80,7 +80,7 @@ export function ResearchAssistant({ isAuthenticated, displayName, onAccountEntry
       <section id="ai-guide" className="scroll-mt-6 border-y border-[#a9c4bd] bg-[#143e43] px-6 py-14 text-[#edf3eb] sm:px-10 xl:px-16 xl:py-20">
         <div className="mx-auto grid max-w-5xl gap-8 border border-[#4f7a7a] bg-[#17393f] p-6 shadow-[8px_8px_0_rgba(7,31,35,0.22)] md:grid-cols-[1fr_auto] md:items-center md:p-9">
           <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8cac6]">06 · Research guide</p>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8cac6]">07 · Research guide</p>
             <h2 className="mt-3 font-display text-4xl leading-[0.92] tracking-[-0.05em] text-white md:text-5xl">Use the assistant only when you are ready to send a question.</h2>
             <p className="mt-5 max-w-2xl text-sm leading-6 text-[#c6d8d1]">Sign in or create an account to access the safety-bounded research guide. It helps with source selection, citation practices, and lawful workflow planning; it is not a person lookup, scan, or private-data tool.</p>
             <div className="mt-5 flex items-start gap-3 border-l-2 border-[#d5c86d] pl-4 text-xs leading-5 text-[#d9e7df]"><ShieldCheck className="mt-0.5 h-4 w-4 flex-none text-[#d5c86d]" /><span>Only send questions you are comfortable sharing with the assistant provider. Do not include personal identifiers, credentials, payment data, or confidential records.</span></div>
@@ -95,7 +95,7 @@ export function ResearchAssistant({ isAuthenticated, displayName, onAccountEntry
     <section id="ai-guide" className="scroll-mt-6 border-y border-[#a9c4bd] bg-[#dce9e5] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
       <div className="grid gap-10 xl:grid-cols-[0.7fr_1.3fr]">
         <div>
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">06 · Research guide</p>
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">07 · Research guide</p>
           <h2 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">A second set of eyes for your research path.</h2>
           <p className="mt-5 max-w-md text-sm leading-6 text-[#526561]">Welcome, {displayName || "researcher"}. Ask for source selection, privacy controls, or citation guidance—not person or device intelligence.</p>
           <div className="mt-7 border border-[#8db0a8] bg-[#eff3eb] p-5 shadow-[5px_5px_0_rgba(15,89,116,0.1)]"><div className="flex gap-3"><ShieldCheck className="mt-0.5 h-5 w-5 flex-none text-[#0f5974]" /><div><p className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#0f5974]">Session boundary</p><p className="mt-2 text-xs leading-5 text-[#50625e]">Conversation history remains in this page only and clears on refresh or when you clear the session. Sending a message submits it to the server-side research guide for a response.</p></div></div></div>

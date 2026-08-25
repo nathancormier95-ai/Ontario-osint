@@ -228,7 +228,7 @@ export function CitationLog() {
     <section id="citation-log" className="scroll-mt-6 bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
       <div className="grid gap-10 xl:grid-cols-[0.72fr_1.28fr]">
         <div>
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">05 · Citation log</p>
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">06 · Citation log</p>
           <h2 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">Keep a citation trail that stays with you.</h2>
           <p className="mt-5 max-w-md text-sm leading-6 text-[#536561]">Save source-level references, access dates, purpose notes, and observations in your own browser. Account sync is optional and remains inactive until you explicitly approve it.</p>
           <div className="mt-8 border border-[#afc6bf] bg-[#e5eee8] p-5 shadow-[5px_5px_0_rgba(15,89,116,0.1)]"><p className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#0f5974]">Local-first boundary</p><ul className="mt-4 space-y-3 text-xs leading-5 text-[#46615c]"><li className="flex gap-3"><span className="font-mono text-[#0f5974]">01</span><span>Entries are stored only in this browser unless you actively enable account sync.</span></li><li className="flex gap-3"><span className="font-mono text-[#0f5974]">02</span><span>Exports download directly to your device; no account is required.</span></li><li className="flex gap-3"><span className="font-mono text-[#0f5974]">03</span><span>Keep entries source-focused and avoid unnecessary personal information.</span></li></ul></div>

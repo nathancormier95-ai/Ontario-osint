@@ -33,6 +33,7 @@ import { resources } from "@/lib/resources";
 import { isPayPalConfigured, siteConfig } from "@/lib/site-config";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CitationLog } from "@/components/CitationLog";
+import { EvidenceTools } from "@/components/EvidenceTools";
 import { ResearchAssistant } from "@/components/ResearchAssistant";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
@@ -54,12 +55,13 @@ const socialPlatforms = [
 
 const sectionNav = [
   { number: "01", label: "Workbench", id: "workbench", detail: "Guided leads" },
-  { number: "02", label: "Source ledger", id: "sources", detail: `${resources.length} direct sources` },
-  { number: "03", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
-  { number: "04", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
-  { number: "05", label: "Citation log", id: "citation-log", detail: "Browser-local" },
-  { number: "06", label: "Research guide", id: "ai-guide", detail: "Account access" },
-  { number: "07", label: "Support desk", id: "support", detail: "Hosted checkout" },
+  { number: "02", label: "Evidence tools", id: "evidence-tools", detail: "Local & outbound" },
+  { number: "03", label: "Source ledger", id: "sources", detail: `${resources.length} direct sources` },
+  { number: "04", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
+  { number: "05", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
+  { number: "06", label: "Citation log", id: "citation-log", detail: "Browser-local" },
+  { number: "07", label: "Research guide", id: "ai-guide", detail: "Account access" },
+  { number: "08", label: "Support desk", id: "support", detail: "Hosted checkout" },
 ] as const;
 
 const visualAssets = {
@@ -499,10 +501,12 @@ export default function Home() {
             </div>
           </section>
 
+          <EvidenceTools />
+
           <section id="sources" className="scroll-mt-6 border-y border-[#b6c7c1] bg-[#17393f] px-6 py-14 text-[#edf1e7] sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 xl:grid-cols-[0.78fr_1.22fr]">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b3d6d0]">02 · Source ledger</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b3d6d0]">03 · Source ledger</p>
                 <h2 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em]">Direct sources, stated scope.</h2>
                 <p className="mt-5 max-w-md text-sm leading-6 text-[#c5d2ca]">Start from the issuing institution or a recognized legal-information publisher. Open each destination in a new tab and follow its specific access terms.</p>
                 <div className="mt-8 border-y border-[#3f696b] py-5">
@@ -551,7 +555,7 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 max-w-sm bg-[#f6f2e9]/95 p-5 backdrop-blur-sm"><p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#0f5974]">Method matters</p><p className="mt-2 text-sm leading-6 text-[#3c514f]">Public availability does not erase privacy, context, copyright, or publication limits.</p></div>
               </div>
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">03 · Responsible use</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">04 · Responsible use</p>
                 <h2 className="mt-4 font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19363b]">Build a trail—not a target file.</h2>
                 <p className="mt-6 max-w-lg text-base leading-7 text-[#52625e]">Ontario Research Hub is an orientation tool. It helps people find source pages and prepare transparent searches, but it does not identify people, scrape accounts, access private data, or establish facts.</p>
                 <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -568,7 +572,7 @@ export default function Home() {
           <section id="registry-guide" className="scroll-mt-6 border-y border-[#a9c4bd] bg-[#d7e6df] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-10 xl:grid-cols-[0.72fr_1.28fr]">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">04 · Registry & land</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">05 · Registry & land</p>
                 <h2 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">Research records—not people.</h2>
                 <p className="mt-5 max-w-md text-sm leading-6 text-[#4c615e]">Use corporate and land records to answer a defined entity, property, or transaction question. Keep only what the question requires, preserve the source context, and never turn an isolated record into a personal dossier.</p>
                 <div className="mt-8 border-l-2 border-[#d5c86d] bg-[#edf3eb]/80 px-5 py-4">
@@ -634,7 +638,7 @@ export default function Home() {
           <section id="support" className="scroll-mt-6 bg-[#cbdcd4] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 border border-[#97b8b0] bg-[#eaf0e8] p-6 shadow-[9px_9px_0_rgba(15,89,116,0.16)] lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">07 · Support desk</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">08 · Support desk</p>
                 <h2 className="mt-3 font-display text-4xl tracking-[-0.05em] text-[#19383e] md:text-5xl">Keep the source ledger open.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-6 text-[#52625f]">This GitHub-hosted front end uses a PayPal hosted checkout link, so payment entry occurs on PayPal rather than on this site. Add your approved hosted button URL, terms, privacy notice, and refund policy before enabling a live payment page.</p>
               </div>
