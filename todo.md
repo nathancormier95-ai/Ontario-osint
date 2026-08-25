@@ -11,3 +11,7 @@
 - [x] Verify official Ontario land-registry, corporate, and justice/public-records database links and limitations.
 - [x] Add the expanded Ontario source set and access notes to the resource ledger.
 - [x] Test, commit, and push the expanded directory to `nathancormier95-ai/Ontario-osint`.
+- [x] Verify official open-data portal URLs and scope notes for Toronto, Ottawa, Hamilton, Mississauga, and Brampton.
+- [x] Add verified municipal open-data portals to the resource ledger.
+- [x] Redesign the sidebar navigation with stronger contrast, more distinctive hierarchy, and visible active-state cues.
+- [x] Test, commit, and push the municipal-data expansion to `nathancormier95-ai/Ontario-osint`.

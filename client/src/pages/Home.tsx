@@ -2,7 +2,7 @@
  * Civic Field Notes style reminder: an asymmetric archive desk with warm paper surfaces,
  * evidence-first source stamps, calm accountability, and Ontario Lake teal as the action signal.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowDownRight,
   BadgeCheck,
@@ -43,6 +43,13 @@ const socialPlatforms = [
   { label: "Facebook", domain: "facebook.com" },
 ];
 
+const sectionNav = [
+  { number: "01", label: "Workbench", id: "workbench", detail: "Guided leads" },
+  { number: "02", label: "Source ledger", id: "sources", detail: `${resources.length} direct sources` },
+  { number: "03", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
+  { number: "04", label: "Support desk", id: "support", detail: "Hosted checkout" },
+] as const;
+
 const visualAssets = {
   hero:
     import.meta.env.BASE_URL === "/"
@@ -79,6 +86,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [resourceFilter, setResourceFilter] = useState("All");
+  const [activeSection, setActiveSection] = useState<(typeof sectionNav)[number]["id"]>("workbench");
 
   const categories = ["All", ...Array.from(new Set(resources.map((resource) => resource.category)))];
   const visibleResources = useMemo(
@@ -91,6 +99,23 @@ export default function Home() {
 
   const normalizedEmail = email.trim();
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
+
+  useEffect(() => {
+    const sections = sectionNav
+      .map(({ id }) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const activeEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
+        if (activeEntry) setActiveSection(activeEntry.target.id as (typeof sectionNav)[number]["id"]);
+      },
+      { rootMargin: "-14% 0px -62% 0px", threshold: [0.1, 0.35, 0.6] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   function requireConsent() {
     if (consent) return true;
@@ -129,11 +154,19 @@ export default function Home() {
     openExternal(siteConfig.paypalCheckoutUrl);
   }
 
+  function navigateToSection(id: (typeof sectionNav)[number]["id"]) {
+    setActiveSection(id);
+    scrollToId(id);
+  }
+
   return (
     <div className="min-h-screen bg-[#f4f1e8] text-[#152327] selection:bg-[#c6e4e9] selection:text-[#123747]">
       <div className="paper-grain pointer-events-none fixed inset-0 z-40 opacity-70" />
       <div className="relative mx-auto flex min-h-screen max-w-[1680px] flex-col lg:flex-row">
-        <aside className="relative z-20 border-b border-[#d7d0c4] bg-[#eee8da]/95 px-5 py-4 backdrop-blur lg:sticky lg:top-0 lg:h-screen lg:w-[276px] lg:flex-none lg:border-b-0 lg:border-r lg:px-7 lg:py-8">
+        <aside className="relative isolate z-20 overflow-hidden border-b border-[#2c6467] bg-[#12393f] px-5 py-4 text-[#ecf0e7] shadow-[0_12px_36px_rgba(7,31,35,0.18)] lg:sticky lg:top-0 lg:h-screen lg:w-[296px] lg:flex-none lg:border-b-0 lg:border-r lg:px-7 lg:py-8">
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(224,244,234,0.05)_1px,transparent_1px),linear-gradient(rgba(224,244,234,0.04)_1px,transparent_1px)] bg-[size:24px_24px]" />
+          <div className="pointer-events-none absolute bottom-0 left-7 top-0 hidden w-px bg-[#4e8080] opacity-60 lg:block" />
+          <div className="relative flex h-full flex-col">
           <div className="flex items-center justify-between lg:block">
             <button
               type="button"
@@ -141,63 +174,68 @@ export default function Home() {
               className="group flex items-center gap-3 text-left"
               aria-label="Return to the top of Ontario Research Hub"
             >
-              <img
-                src={visualAssets.logo}
-                alt="Ontario Research Hub compass lens mark"
-                className="h-12 w-12 object-contain transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-105"
-              />
+              <span className="flex h-12 w-12 items-center justify-center border border-[#80b9b6] bg-[#f0ede2] shadow-[3px_3px_0_rgba(195,232,223,0.32)]">
+                <img src={visualAssets.logo} alt="Ontario Research Hub compass lens mark" className="h-10 w-10 object-contain transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-105" />
+              </span>
               <span>
-                <span className="block font-display text-[1.35rem] leading-none tracking-[-0.04em] text-[#133740]">
+                <span className="block font-display text-[1.45rem] leading-none tracking-[-0.04em] text-[#f1eee2]">
                   Ontario
                 </span>
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0f5974]">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#9fd5cf]">
                   Research Hub
                 </span>
               </span>
             </button>
-            <span className="hidden h-8 border-l border-[#c9c0b1] lg:block" />
+            <span className="hidden h-8 border-l border-[#4e8080] lg:block" />
           </div>
 
-          <div className="mt-7 hidden lg:block">
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#68716d]">Ontario · CA</p>
-            <div className="mt-3 h-px w-full bg-[#cbc3b7]" />
-            <nav className="mt-5 space-y-1" aria-label="Main navigation">
-              {[
-                ["01", "Workbench", "workbench"],
-                ["02", "Source ledger", "sources"],
-                ["03", "Responsible use", "responsible-use"],
-                ["04", "Support desk", "support"],
-              ].map(([number, label, id]) => (
+          <div className="mt-8 hidden lg:block">
+            <div className="flex items-center gap-3">
+              <span className="h-2 w-2 bg-[#d5c86d] shadow-[0_0_0_3px_rgba(213,200,109,0.16)]" />
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#b4d9d4]">Field guide · Ontario</p>
+            </div>
+            <div className="mt-4 h-px w-full bg-[#4e8080]" />
+            <nav className="mt-5 space-y-2" aria-label="Main navigation">
+              {sectionNav.map(({ number, label, id, detail }) => {
+                const isCurrent = activeSection === id;
+                return (
                 <button
                   key={id}
                   type="button"
-                  onClick={() => scrollToId(id)}
-                  className="group flex w-full items-center gap-3 px-2 py-2 text-left text-sm font-medium text-[#39494b] transition-colors hover:bg-[#dce9e5] hover:text-[#0f5974]"
+                  onClick={() => navigateToSection(id)}
+                  aria-current={isCurrent ? "page" : undefined}
+                  className={`group relative flex w-full items-center gap-3 border-l-2 px-3 py-3 text-left transition-all duration-200 ${isCurrent ? "border-[#d5c86d] bg-[#e4eee7] text-[#12393f] shadow-[4px_4px_0_rgba(4,20,23,0.2)]" : "border-transparent text-[#d4e4dd] hover:border-[#80b9b6] hover:bg-[#1c4a50] hover:text-white"}`}
                 >
-                  <span className="font-mono text-[10px] text-[#86908a]">{number}</span>
-                  <span>{label}</span>
-                  <ChevronRight className="ml-auto h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <span className={`font-mono text-[10px] ${isCurrent ? "text-[#0f5974]" : "text-[#83b5b0]"}`}>{number}</span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold leading-none">{label}</span>
+                    <span className={`mt-1 block font-mono text-[8px] uppercase tracking-[0.12em] ${isCurrent ? "text-[#3d6668]" : "text-[#8eb9b4]"}`}>{detail}</span>
+                  </span>
+                  <ChevronRight className={`ml-auto h-4 w-4 flex-none transition-all ${isCurrent ? "translate-x-0 text-[#0f5974]" : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"}`} />
                 </button>
-              ))}
+                );
+              })}
             </nav>
           </div>
 
-          <div className="mt-6 hidden border-l-2 border-[#be5949] pl-4 lg:block">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#a3473a]">Research protocol</p>
-            <p className="mt-2 text-xs leading-5 text-[#52605d]">
+          <div className="mt-7 hidden border border-[#3e7274] bg-[#0d2d31]/80 p-4 lg:block">
+            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#d5c86d]">Research protocol</p>
+            <p className="mt-2 text-xs leading-5 text-[#cfdfd8]">
               Use public sources lawfully. Do not harass, impersonate, or build dossiers on private individuals.
             </p>
           </div>
 
           <div className="mt-auto hidden lg:block lg:pt-8">
+            <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.16em] text-[#89b9b4]">Desk status · open</p>
             <button
               type="button"
-              onClick={() => scrollToId("support")}
-              className="group flex w-full items-center justify-between border border-[#aac8c7] bg-[#0f5974] px-4 py-3 text-left text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#104b62] active:scale-[0.98]"
+              onClick={() => navigateToSection("support")}
+              className="group flex w-full items-center justify-between border border-[#d5c86d] bg-[#d5c86d] px-4 py-3 text-left text-sm font-semibold text-[#14393d] transition-all hover:-translate-y-0.5 hover:bg-[#e4d77a] active:scale-[0.98]"
             >
               Support the desk
               <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
             </button>
+          </div>
           </div>
         </aside>
 

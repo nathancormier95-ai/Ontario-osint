@@ -86,9 +86,41 @@ export const resources: Resource[] = [
   {
     title: "Toronto Open Data",
     description:
-      "Browse City of Toronto datasets, maps, and documentation for municipal research questions.",
+      "Explore datasets, maps, visualizations, and documentation published by City divisions and agencies.",
     href: "https://open.toronto.ca/",
     category: "Open data",
-    note: "Municipal open-data portal",
+    note: "City of Toronto · official open-data portal",
+  },
+  {
+    title: "Open Ottawa",
+    description:
+      "Browse the City of Ottawa’s public data catalogue and related municipal data tools.",
+    href: "https://open.ottawa.ca/",
+    category: "Open data",
+    note: "City of Ottawa · official open-data portal",
+  },
+  {
+    title: "Hamilton Open Data",
+    description:
+      "Find City of Hamilton public information for research, analysis, reporting, and application development.",
+    href: "https://open.hamilton.ca/",
+    category: "Open data",
+    note: "City of Hamilton · catalogue and licence terms",
+  },
+  {
+    title: "Mississauga Open Data",
+    description:
+      "Explore the City of Mississauga’s municipal data hub and public dataset catalogue.",
+    href: "https://data.mississauga.ca/",
+    category: "Open data",
+    note: "City of Mississauga · official data hub",
+  },
+  {
+    title: "Brampton GeoHub",
+    description:
+      "Explore and download City of Brampton open data through the public GeoHub portal.",
+    href: "https://geohub.brampton.ca/pages/data",
+    category: "Open data",
+    note: "City of Brampton · public open-data hub",
   },
 ];
