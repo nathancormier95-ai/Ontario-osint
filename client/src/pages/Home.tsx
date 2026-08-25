@@ -49,7 +49,8 @@ const sectionNav = [
   { number: "01", label: "Workbench", id: "workbench", detail: "Guided leads" },
   { number: "02", label: "Source ledger", id: "sources", detail: `${resources.length} direct sources` },
   { number: "03", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
-  { number: "04", label: "Support desk", id: "support", detail: "Hosted checkout" },
+  { number: "04", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
+  { number: "05", label: "Support desk", id: "support", detail: "Hosted checkout" },
 ] as const;
 
 const visualAssets = {
@@ -533,10 +534,72 @@ export default function Home() {
             </div>
           </section>
 
+          <section id="registry-guide" className="scroll-mt-6 border-y border-[#a9c4bd] bg-[#d7e6df] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
+            <div className="grid gap-10 xl:grid-cols-[0.72fr_1.28fr]">
+              <div>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">04 · Registry & land</p>
+                <h2 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">Research records—not people.</h2>
+                <p className="mt-5 max-w-md text-sm leading-6 text-[#4c615e]">Use corporate and land records to answer a defined entity, property, or transaction question. Keep only what the question requires, preserve the source context, and never turn an isolated record into a personal dossier.</p>
+                <div className="mt-8 border-l-2 border-[#d5c86d] bg-[#edf3eb]/80 px-5 py-4">
+                  <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#496e70]">Working rule</p>
+                  <p className="mt-2 font-display text-2xl leading-none tracking-[-0.035em] text-[#24454a]">The smallest useful record is usually the most responsible one.</p>
+                </div>
+              </div>
+
+              <div className="grid gap-5 lg:grid-cols-2">
+                <article className="border border-[#8baea7] bg-[#f8f5ee] p-6 shadow-[6px_6px_0_rgba(15,89,116,0.12)]">
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="flex h-10 w-10 items-center justify-center bg-[#dce9e5] text-[#0f5974]"><Building2 className="h-5 w-5" /></span>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#55716e]">Corporate registry</span>
+                  </div>
+                  <h3 className="mt-6 font-display text-3xl leading-none tracking-[-0.045em] text-[#19383d]">Start with the entity.</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#536561]">Document the business, legal, compliance, or due-diligence question first. Search the organization before considering individual names, and retain only the fields needed to answer that stated question.</p>
+                  <a href="https://www.ontario.ca/page/ontario-business-registry" target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 border-b border-[#0f5974] pb-1 text-xs font-semibold text-[#0f5974] transition-colors hover:text-[#16495b]">Open Ontario Business Registry <ExternalLink className="h-3.5 w-3.5" /></a>
+                </article>
+
+                <article className="border border-[#8baea7] bg-[#f8f5ee] p-6 shadow-[6px_6px_0_rgba(15,89,116,0.12)]">
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="flex h-10 w-10 items-center justify-center bg-[#dce9e5] text-[#0f5974]"><Landmark className="h-5 w-5" /></span>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#55716e]">Land title research</span>
+                  </div>
+                  <h3 className="mt-6 font-display text-3xl leading-none tracking-[-0.045em] text-[#19383d]">Start with the parcel.</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#536561]">Use a property, legal-description, or transaction question as the starting point. Review only the title or instrument required, keep paid results access-controlled, and avoid combining ownership details with unrelated personal data.</p>
+                  <a href="https://www.onland.ca/ui/" target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 border-b border-[#0f5974] pb-1 text-xs font-semibold text-[#0f5974] transition-colors hover:text-[#16495b]">Open OnLand <ExternalLink className="h-3.5 w-3.5" /></a>
+                </article>
+
+                <div className="border border-[#8baea7] bg-[#143e43] p-6 text-[#edf3eb] lg:col-span-2">
+                  <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#4f7a7a] pb-4">
+                    <div>
+                      <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.18em] text-[#a8cac6]">Research control card</p>
+                      <h3 className="mt-2 font-display text-3xl leading-none tracking-[-0.04em]">Five controls before you save a record.</h3>
+                    </div>
+                    <span className="border border-[#d5c86d] px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-[#d5c86d]">Purpose-first</span>
+                  </div>
+                  <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+                    {[
+                      { icon: CircleAlert, title: "Purpose record", copy: "Write the question before searching." },
+                      { icon: FileSearch, title: "Minimum collection", copy: "Keep the smallest relevant extract." },
+                      { icon: ShieldCheck, title: "Access control", copy: "Share only with authorized roles." },
+                      { icon: BookOpen, title: "Retention review", copy: "Set a project-end deletion date." },
+                      { icon: BadgeCheck, title: "Source verification", copy: "Log issuer, link, and access date." },
+                    ].map(({ icon: Icon, title, copy }, index) => (
+                      <div key={title} className="border-l border-[#4f7a7a] pl-4 first:border-l-0 first:pl-0 sm:first:border-l-0 xl:border-l xl:pl-4 xl:first:border-l-0 xl:first:pl-0">
+                        <span className="font-mono text-[9px] text-[#89b9b4]">0{index + 1}</span>
+                        <Icon className="mt-3 h-4 w-4 text-[#d5c86d]" />
+                        <h4 className="mt-3 text-sm font-semibold text-white">{title}</h4>
+                        <p className="mt-1 text-xs leading-5 text-[#bed4cd]">{copy}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section id="support" className="scroll-mt-6 bg-[#cbdcd4] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 border border-[#97b8b0] bg-[#eaf0e8] p-6 shadow-[9px_9px_0_rgba(15,89,116,0.16)] lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">04 · Support desk</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">05 · Support desk</p>
                 <h2 className="mt-3 font-display text-4xl tracking-[-0.05em] text-[#19383e] md:text-5xl">Keep the source ledger open.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-6 text-[#52625f]">This GitHub-hosted front end uses a PayPal hosted checkout link, so payment entry occurs on PayPal rather than on this site. Add your approved hosted button URL, terms, privacy notice, and refund policy before enabling a live payment page.</p>
               </div>

@@ -21,3 +21,6 @@
 - [x] Implement a visible, keyboard-accessible mobile navigation drawer for the sidebar sections.
 - [x] Refine mobile spacing, controls, and source-ledger layout for narrow screens.
 - [x] Test mobile and desktop navigation, commit, and push the responsive update to `nathancormier95-ai/Ontario-osint`.
+- [x] Add a privacy-first corporate-registry and land-title research section with documented research controls.
+- [x] Connect the new guidance section to desktop and mobile navigation.
+- [x] Test, commit, and push the research-guidance update to `nathancormier95-ai/Ontario-osint`.
