@@ -18,3 +18,7 @@ The resulting Evidence Tools section is intentionally source-led, local-first, a
 The VIN adaptation uses the official [NHTSA vPIC VIN Decoder](https://vpic.nhtsa.dot.gov/decoder/) and its documented [Decode VIN Extended API](https://vpic.nhtsa.dot.gov/api/). vPIC describes the output as vehicle information encoded in a VIN and notes that the data is reported by manufacturers; it is not an owner, plate, location, insurance, or vehicle-history service.
 
 The related [Canadian Vehicle Specifications](https://vpic.nhtsa.dot.gov/decoder/CaVehSpec?year=2026) page describes a Transport Canada-compiled annual database of original vehicle dimensions, used primarily for collision investigation and reconstruction. It is labelled in the Hub as a **vehicle-dimensions reference**, not as an Ontario registration, owner, plate, location, insurance, or vehicle-history service.
+
+## Evidence Tools verification
+
+On August 25, 2026, the Canadian Vehicle Specifications destination returned a successful `HTTP/2 200` response. The final automated suite verified domain normalization and public-source URL construction, VIN normalization and acknowledgement gating, the NHTSA VIN destination, SHA-256/first-byte extraction from browser-provided file bytes, the 25 MB local file-size limit, and the browser clipboard-copy adapter. No defects were identified in these paths. The final TypeScript check and production build completed successfully.

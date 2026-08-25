@@ -47,3 +47,7 @@
 - [x] Verify the Canadian vehicle-specification destination and label its scope accurately.
 - [x] Add the labelled Canadian vehicle-specification link alongside the public VIN reference.
 - [x] Test, publish, commit, and push the Canadian vehicle-reference update to `nathancormier95-ai/Ontario-osint`.
+- [x] Verify the Canadian vehicle-specification destination and exact scope label in the deployed interface.
+- [x] Test domain-source validation, VIN validation/acknowledgement, and browser-local file-evidence behavior.
+- [x] Record and resolve any Evidence Tools test findings.
+- [x] Add direct automated coverage for VIN acknowledgement gating and browser-local file evidence hashing.
