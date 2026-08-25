@@ -29,12 +29,13 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { toast } from "sonner";
-import { resources } from "@/lib/resources";
+import { resources, type Resource } from "@/lib/resources";
 import { isPayPalConfigured, siteConfig } from "@/lib/site-config";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CitationLog } from "@/components/CitationLog";
 import { EvidenceTools } from "@/components/EvidenceTools";
 import { ResearchAssistant } from "@/components/ResearchAssistant";
+import { SourceSelfCheck } from "@/components/SourceSelfCheck";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 
@@ -57,12 +58,22 @@ const sectionNav = [
   { number: "01", label: "Workbench", id: "workbench", detail: "Guided leads" },
   { number: "02", label: "Evidence tools", id: "evidence-tools", detail: "Local & outbound" },
   { number: "03", label: "Source ledger", id: "sources", detail: `${resources.length} direct sources` },
+  { number: "03A", label: "Source status", id: "source-status", detail: "On-demand monitor" },
   { number: "04", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
   { number: "05", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
   { number: "06", label: "Citation log", id: "citation-log", detail: "Browser-local" },
   { number: "07", label: "Research guide", id: "ai-guide", detail: "Account access" },
   { number: "08", label: "Support desk", id: "support", detail: "Hosted checkout" },
 ] as const;
+
+const categoryBadgeStyles: Record<Resource["category"], string> = {
+  "Public records": "bg-[#3a8b83] text-[#f3fff9]",
+  Legal: "bg-[#72578f] text-[#fbf6ff]",
+  "Open data": "bg-[#247ba0] text-[#eefaff]",
+  Archives: "bg-[#a85c7c] text-[#fff2f7]",
+  Property: "bg-[#bf6b4c] text-[#fff7ed]",
+  Regulatory: "bg-[#748a3f] text-[#f7ffe7]",
+};
 
 const visualAssets = {
   hero:
@@ -531,7 +542,8 @@ export default function Home() {
               <div className="grid gap-px bg-[#52767a] sm:grid-cols-2">
                 {visibleResources.map((resource, index) => (
                   <a key={resource.title} href={resource.href} target="_blank" rel="noreferrer" className="group flex min-h-[220px] flex-col bg-[#17393f] p-5 transition-colors hover:bg-[#20494c]">
-                    <div className="flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#a8cac6]">{String(index + 1).padStart(2, "0")} · {resource.category}{resource.municipality ? ` · ${resource.municipality}` : ""}</span><ExternalLink className="h-4 w-4 text-[#a8cac6] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div>
+                    <div className="flex items-center justify-between gap-3"><span className={`font-mono text-[9px] uppercase tracking-[0.12em] ${categoryBadgeStyles[resource.category]} px-2.5 py-1.5`}>{String(index + 1).padStart(2, "0")} · {resource.category}</span><ExternalLink className="h-4 w-4 flex-none text-[#a8cac6] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div>
+                    {resource.municipality && <span className="mt-3 w-fit border border-[#698d91] bg-[#234e52] px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-[#e7c96f]">{resource.municipality}</span>}
                     <h3 className="mt-6 font-display text-3xl leading-none tracking-[-0.04em] text-[#f3f4eb]">{resource.title}</h3>
                     <p className="mt-3 text-sm leading-6 text-[#b7c7bf]">{resource.description}</p>
                     <span className="mt-auto pt-4 font-mono text-[9px] uppercase tracking-[0.1em] text-[#8fb8b3]">{resource.note}</span>
@@ -547,6 +559,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          <SourceSelfCheck />
 
           <section id="responsible-use" className="scroll-mt-6 bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">

@@ -51,3 +51,9 @@
 - [x] Test domain-source validation, VIN validation/acknowledgement, and browser-local file-evidence behavior.
 - [x] Record and resolve any Evidence Tools test findings.
 - [x] Add direct automated coverage for VIN acknowledgement gating and browser-local file evidence hashing.
+- [x] Define an allowlisted approved-source catalogue and non-identifying availability criteria.
+- [x] Build protected server-side source checks with bounded timeouts and status results.
+- [x] Add an on-demand self-check status panel with timestamps and source-link outcomes.
+- [x] Test, publish, commit, and push the approved-source self-check feature to `nathancormier95-ai/Ontario-osint`.
+- [x] Refine the visual system with a more colorful Ontario civic-research palette while preserving accessibility and readability.
+- [x] Test, publish, commit, and push the colorful interface refinement to `nathancormier95-ai/Ontario-osint`.
