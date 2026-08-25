@@ -44,3 +44,6 @@
 - [x] Review the next archive tool candidates and select a privacy-preserving Ontario Research Hub adaptation.
 - [x] Implement the selected archive-derived utility with clear user-controlled data boundaries.
 - [x] Test, publish, commit, and push the continued archive adaptation to `nathancormier95-ai/Ontario-osint`.
+- [x] Verify the Canadian vehicle-specification destination and label its scope accurately.
+- [x] Add the labelled Canadian vehicle-specification link alongside the public VIN reference.
+- [x] Test, publish, commit, and push the Canadian vehicle-reference update to `nathancormier95-ai/Ontario-osint`.
