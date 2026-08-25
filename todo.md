@@ -8,3 +8,6 @@
 - [x] Add GitHub Pages build and deployment configuration.
 - [x] Test the production build and representative responsive views.
 - [x] Commit and push the completed website source, documentation, and deployment configuration.
+- [x] Verify official Ontario land-registry, corporate, and justice/public-records database links and limitations.
+- [x] Add the expanded Ontario source set and access notes to the resource ledger.
+- [x] Test, commit, and push the expanded directory to `nathancormier95-ai/Ontario-osint`.

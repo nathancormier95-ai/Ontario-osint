@@ -6,7 +6,7 @@ export type Resource = {
   title: string;
   description: string;
   href: string;
-  category: "Public records" | "Legal" | "Open data" | "Archives";
+  category: "Public records" | "Legal" | "Open data" | "Archives" | "Property" | "Regulatory";
   note: string;
 };
 
@@ -18,6 +18,22 @@ export const resources: Resource[] = [
     href: "https://www.appmybizaccount.gov.on.ca/onbis/master/entry.pub?applicationCode=onbis-master&businessService=registerItemSearch",
     category: "Public records",
     note: "Official ServiceOntario resource",
+  },
+  {
+    title: "Ontario Land Registry · OnLand",
+    description:
+      "Search current and historical property records, including ownership interests, mortgages, transfers, and leases.",
+    href: "https://www.onland.ca/ui/",
+    category: "Property",
+    note: "Official ServiceOntario resource · self-search fee",
+  },
+  {
+    title: "Personal Property Lien Search",
+    description:
+      "Use Ontario’s Access Now service for personal-property security registrations and lien-related enquiries.",
+    href: "https://www.ontario.ca/page/register-security-interest-or-search-lien-access-now",
+    category: "Public records",
+    note: "Real property and land records are excluded",
   },
   {
     title: "Ontario Courts case search",
@@ -50,6 +66,22 @@ export const resources: Resource[] = [
     href: "https://www.canlii.org/en/on/",
     category: "Legal",
     note: "Independent legal information institute",
+  },
+  {
+    title: "Lawyer & Paralegal Directory",
+    description:
+      "Check Law Society licensing and practising status for Ontario lawyers and paralegals, with business contact details.",
+    href: "https://lsodirectory.lso.ca/en-US/",
+    category: "Legal",
+    note: "Law Society of Ontario · not legal advice",
+  },
+  {
+    title: "Ontario Business Licence Directory",
+    description:
+      "Find specified regulated business licence, registration, and appointment records, including consumer-sector categories.",
+    href: "https://www.ontario.ca/page/search-business-licence-registration-or-appointment",
+    category: "Regulatory",
+    note: "Provincial directory · updates noted monthly",
   },
   {
     title: "Toronto Open Data",
