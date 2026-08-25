@@ -27,3 +27,10 @@
 - [x] Define privacy-preserving, browser-local citation-log fields and export formats.
 - [x] Implement citation-log creation, local persistence, deletion, and CSV/Markdown exports.
 - [x] Test, commit, and push the citation-log feature to `nathancormier95-ai/Ontario-osint`.
+- [x] Enable secure account infrastructure and define the no-account versus account privacy boundaries.
+- [x] Configure Manus hosting as the primary runtime while retaining GitHub as the synchronized source repository.
+- [x] Add sign-up and sign-in entry points across desktop and mobile navigation.
+- [x] Test, commit, and push the account-access update to `nathancormier95-ai/Ontario-osint`.
+- [x] Review the uploaded `AIAssistant.tsx` component for dependencies, data handling, and safe integration points.
+- [x] Adapt the uploaded assistant into the site with privacy-conscious tool-selection guidance and HTML-compatible presentation.
+- [x] Test, commit, and push the account and assistant integration to `nathancormier95-ai/Ontario-osint`.

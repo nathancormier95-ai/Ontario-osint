@@ -1,4 +1,4 @@
-name: Deploy Ontario Research Hub
+name: Validate Ontario Research Hub
 
 on:
   push:
@@ -7,12 +7,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: github-pages
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -31,20 +25,9 @@ jobs:
           version: 10
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build website
+      - name: Run type check
+        run: pnpm check
+      - name: Run unit tests
+        run: pnpm test
+      - name: Build Manus-hosted application
         run: pnpm build
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist/public
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

@@ -1,35 +1,39 @@
 # Ontario Research Hub
 
-Ontario Research Hub is a static, GitHub Pages-ready source directory for lawful Ontario public-records, legal-information, archive, and open-data research. It provides guided outbound workflows for exact-name and public-profile searches, a local email-format check, and a configurable PayPal hosted-checkout handoff.
+Ontario Research Hub is a **Manus-hosted** source directory and research workspace for lawful Ontario public records, legal information, archives, and municipal open data. The GitHub repository remains the version-controlled source of truth and runs automated validation on every push.
 
-> The site does **not** store submitted identifiers, scrape websites, verify identities, or create person profiles. It opens user-controlled searches with external providers and directs visitors to the original source pages.
+> The Hub is designed for source discovery and responsible research. It does not scrape public websites, create person profiles, or provide identity, device, account, payment-card, SIM-swap, or licence-plate lookup services.
 
 ## What is included
 
 | Area | Implementation |
 | --- | --- |
-| Ontario resources | Curated direct links to the Ontario Business Registry, Ontario Courts search guidance, Ontario Data Catalogue, Archives of Ontario, CanLII Ontario, and Toronto Open Data. |
-| First and last name workflow | Builds an external exact-name search after a responsible-use acknowledgement. |
-| Public-profile workflow | Builds an external domain-constrained search for a user-selected public platform. |
-| Email check | Performs a syntax-only validation locally in the visitor’s browser. |
-| Payments | Uses a PayPal **hosted payment link**, so checkout occurs on PayPal instead of on the GitHub Pages site. |
+| Public-source directory | Curated direct links to Ontario business, land, court, archive, legal, regulatory, provincial-data, and municipal-data sources. |
+| Guided workflows | User-controlled exact-name and public-profile search shortcuts plus a local email-format check. |
+| Privacy-first guidance | Corporate research starts with the entity; land research starts with the parcel. The site includes purpose, minimization, access-control, retention, and verification controls. |
+| Citation log | Optional source-level citations stored only in the visitor’s browser, exportable directly as CSV or Markdown. |
+| Research guide | A signed-in, server-side assistant for source selection, citation practice, privacy controls, and lawful workflow guidance. Conversation history remains in page memory and is not saved by the website. |
+| Accounts | Manus OAuth sign-up/sign-in for the optional research guide. The source directory and local citation log remain usable without an account. |
+| Payments | A configurable PayPal **hosted payment link**; payment entry occurs on PayPal, not in the app. |
+
+## Hosting and accounts
+
+The live application is hosted on Manus because OAuth sessions and server-side AI chat need a secure runtime. The app uses the platform-provided account flow; do not add credentials or OAuth keys to the repository. Visitors can create an account or sign in from the field-guide sidebar or mobile menu.
+
+The research guide is intentionally safety-bounded. It is not a person lookup, device or phone intelligence tool, network scanner, or private-data service. Do not enter personal identifiers, credentials, payment data, confidential records, or other sensitive information into the guide.
 
 ## Configure PayPal
 
-This static site deliberately does not include a PayPal secret, server, or client-token checkout flow. Current PayPal JavaScript SDK v6 integrations use a server-generated client token, which is not appropriate for a static GitHub Pages-only build. The included hosted-checkout route avoids exposing payment credentials in the repository.
+Create an approved PayPal hosted button or donation/payment link, then update `paypalCheckoutUrl` in [`client/src/lib/site-config.ts`](client/src/lib/site-config.ts). Before enabling checkout, publish your service description, price or contribution terms, privacy notice, refund policy, and support contact details. The current button remains inactive until its placeholder URL is replaced.
 
-Create an approved PayPal hosted button or donation/payment link, then update the `paypalCheckoutUrl` value in [`client/src/lib/site-config.ts`](client/src/lib/site-config.ts). Before making the link live, publish your final service description, price or contribution terms, privacy notice, refund policy, and support contact details. The existing button deliberately remains inactive until the placeholder URL is replaced.
+## Development and validation
 
-## Publish on GitHub Pages
-
-The deployment workflow in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds and deploys the site when `main` changes. In the GitHub repository, open **Settings → Pages**, set the deployment source to **GitHub Actions**, and allow the workflow to finish. The site will then be served from the repository Pages URL.
-
-For local development, install dependencies with `pnpm install`, run `pnpm dev`, and open the development URL shown by Vite. Run `pnpm check` for TypeScript validation and `pnpm build` to generate the production website.
+Install dependencies with `pnpm install`, run the application with `pnpm dev`, and use `pnpm check`, `pnpm test`, and `pnpm build` before release. The [GitHub workflow](.github/workflows/deploy.yml) performs the same validation on changes to `main`; it does not deploy a static GitHub Pages version because the live app requires server-side OAuth and the research guide.
 
 ## Responsible-use note
 
-Public accessibility is not a blanket authorization to copy, aggregate, or republish personal information. Use this project only for lawful, legitimate research, respect source-specific restrictions and publication bans, and keep a record of the original source and access date.
+Public accessibility is not a blanket authorization to copy, aggregate, or republish personal information. Use the Hub only for lawful, legitimate research, respect source-specific restrictions and publication bans, collect the smallest relevant record, and retain source context and access dates. For a transaction, dispute, regulated decision, or uncertainty about permitted use, seek qualified Ontario legal or privacy advice.
 
-## Sources
+## Core sources
 
-The resource directory is based on the following public source pages: [Ontario Courts case-search guidance](https://www.ontario.ca/page/search-court-cases-online), [Ontario Business Registry](https://www.ontario.ca/page/ontario-business-registry), [Ontario Data Catalogue](https://data.ontario.ca/), and the [PayPal JavaScript SDK setup documentation](https://developer.paypal.com/sdk/js/set-up).
+The directory uses direct links to the [Ontario Business Registry](https://www.ontario.ca/page/ontario-business-registry), [OnLand](https://www.onland.ca/ui/), [Ontario Courts case-search guidance](https://www.ontario.ca/page/search-court-cases-online), [Ontario Data Catalogue](https://data.ontario.ca/), and municipal open-data portals.

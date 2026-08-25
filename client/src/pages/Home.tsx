@@ -16,12 +16,15 @@ import {
   FileSearch,
   FolderSearch,
   Landmark,
+  LogIn,
+  LogOut,
   MailCheck,
   MapPinned,
   Menu,
   Search,
   ShieldCheck,
   Sparkles,
+  UserRound,
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -30,6 +33,9 @@ import { resources } from "@/lib/resources";
 import { isPayPalConfigured, siteConfig } from "@/lib/site-config";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CitationLog } from "@/components/CitationLog";
+import { ResearchAssistant } from "@/components/ResearchAssistant";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { startLogin } from "@/const";
 
 type WorkbenchTab = "name" | "social" | "email";
 
@@ -52,7 +58,8 @@ const sectionNav = [
   { number: "03", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
   { number: "04", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
   { number: "05", label: "Citation log", id: "citation-log", detail: "Browser-local" },
-  { number: "06", label: "Support desk", id: "support", detail: "Hosted checkout" },
+  { number: "06", label: "Research guide", id: "ai-guide", detail: "Account access" },
+  { number: "07", label: "Support desk", id: "support", detail: "Hosted checkout" },
 ] as const;
 
 const visualAssets = {
@@ -83,6 +90,8 @@ function scrollToId(id: string) {
 }
 
 export default function Home() {
+  const { user, loading: accountLoading, isAuthenticated, logout } = useAuth();
+
   const [activeTab, setActiveTab] = useState<WorkbenchTab>("name");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -176,6 +185,19 @@ export default function Home() {
     if (value !== "All municipalities") setResourceFilter("Open data");
   }
 
+  function handleAccountEntry() {
+    startLogin();
+  }
+
+  async function handleLogout() {
+    try {
+      await logout();
+      toast.success("You are signed out of the research workspace.");
+    } catch {
+      toast.error("Sign-out could not be completed. Please try again.");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#f4f1e8] text-[#152327] selection:bg-[#c6e4e9] selection:text-[#123747]">
       <div className="paper-grain pointer-events-none fixed inset-0 z-40 opacity-70" />
@@ -234,6 +256,9 @@ export default function Home() {
                     })}
                   </nav>
                   <div className="mt-auto border-t border-[#4e8080] p-5">
+                    <div className="mb-4 border border-[#3e7274] bg-[#0d2d31]/80 p-4">
+                      {accountLoading ? <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#a9cbc6]">Checking workspace…</p> : isAuthenticated ? <><div className="flex items-center gap-2"><UserRound className="h-4 w-4 text-[#d5c86d]" /><p className="text-sm font-semibold text-white">{user?.name || "Signed-in researcher"}</p></div><button type="button" onClick={handleLogout} className="mt-3 flex w-full items-center justify-between border border-[#85afa9] px-3 py-2 text-xs font-semibold text-[#d7e4dc] hover:bg-[#1c4a50]"><span>Sign out</span><LogOut className="h-3.5 w-3.5" /></button></> : <><p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#a9cbc6]">Optional workspace</p><p className="mt-2 text-xs leading-5 text-[#d7e4dc]">Sign in to use the research guide. The citation log stays available without an account.</p><div className="mt-3 grid grid-cols-2 gap-2"><button type="button" onClick={handleAccountEntry} className="border border-[#d5c86d] bg-[#d5c86d] px-2 py-2 text-xs font-semibold text-[#14393d]">Create account</button><button type="button" onClick={handleAccountEntry} className="border border-[#85afa9] px-2 py-2 text-xs font-semibold text-[#d7e4dc]">Sign in</button></div></>}
+                    </div>
                     <button type="button" onClick={() => { navigateToSection("support"); setMobileNavOpen(false); }} className="flex w-full items-center justify-between bg-[#d5c86d] px-4 py-3 text-left text-sm font-semibold text-[#14393d]">
                       Support the desk <ArrowDownRight className="h-4 w-4" />
                     </button>
@@ -270,6 +295,10 @@ export default function Home() {
                 );
               })}
             </nav>
+          </div>
+
+          <div className="mt-6 hidden border border-[#3e7274] bg-[#0d2d31]/80 p-4 lg:block">
+            {accountLoading ? <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#a9cbc6]">Checking workspace…</p> : isAuthenticated ? <><div className="flex items-center gap-2"><UserRound className="h-4 w-4 text-[#d5c86d]" /><div><p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#a9cbc6]">Research workspace</p><p className="mt-1 text-sm font-semibold text-white">{user?.name || "Signed-in researcher"}</p></div></div><button type="button" onClick={handleLogout} className="mt-4 flex w-full items-center justify-between border border-[#85afa9] px-3 py-2 text-xs font-semibold text-[#d7e4dc] hover:bg-[#1c4a50]"><span>Sign out</span><LogOut className="h-3.5 w-3.5" /></button></> : <><p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#a9cbc6]">Optional workspace</p><p className="mt-2 text-xs leading-5 text-[#d7e4dc]">Create an account to access the research guide. The browser-local citation log never requires one.</p><button type="button" onClick={handleAccountEntry} className="mt-4 flex w-full items-center justify-between bg-[#d5c86d] px-3 py-2.5 text-left text-xs font-semibold text-[#14393d]">Create account <LogIn className="h-3.5 w-3.5" /></button><button type="button" onClick={handleAccountEntry} className="mt-2 w-full border border-[#85afa9] px-3 py-2 text-xs font-semibold text-[#d7e4dc] hover:bg-[#1c4a50]">Sign in</button></>}
           </div>
 
           <div className="mt-7 hidden border border-[#3e7274] bg-[#0d2d31]/80 p-4 lg:block">
@@ -600,10 +629,12 @@ export default function Home() {
 
           <CitationLog />
 
+          <ResearchAssistant isAuthenticated={isAuthenticated} displayName={user?.name} onAccountEntry={handleAccountEntry} />
+
           <section id="support" className="scroll-mt-6 bg-[#cbdcd4] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 border border-[#97b8b0] bg-[#eaf0e8] p-6 shadow-[9px_9px_0_rgba(15,89,116,0.16)] lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">06 · Support desk</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">07 · Support desk</p>
                 <h2 className="mt-3 font-display text-4xl tracking-[-0.05em] text-[#19383e] md:text-5xl">Keep the source ledger open.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-6 text-[#52625f]">This GitHub-hosted front end uses a PayPal hosted checkout link, so payment entry occurs on PayPal rather than on this site. Add your approved hosted button URL, terms, privacy notice, and refund policy before enabling a live payment page.</p>
               </div>
