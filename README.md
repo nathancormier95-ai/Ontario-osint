@@ -10,7 +10,7 @@ Ontario Research Hub is a **Manus-hosted** source directory and research workspa
 | --- | --- |
 | Public-source directory | Curated direct links to Ontario business, land, court, archive, legal, regulatory, provincial-data, and municipal-data sources. |
 | Guided workflows | User-controlled exact-name and public-profile search shortcuts plus a local email-format check. |
-| Evidence tools | A user-controlled domain-source launcher plus local-only SHA-256 and file-header evidence; no active scanning, uploads, or execution. |
+| Evidence tools | A user-controlled domain-source launcher, browser-only SHA-256 and file-header evidence, and a consent-gated public VIN specification reference; no active scanning, uploads, owner, plate, or location lookup. |
 | Privacy-first guidance | Corporate research starts with the entity; land research starts with the parcel. The site includes purpose, minimization, access-control, retention, and verification controls. |
 | Citation log | Optional source-level citations stored in the visitor’s browser by default, exportable as CSV or Markdown, with an explicit-consent account sync option. |
 | Research guide | A signed-in, server-side assistant for source selection, citation practice, privacy controls, and lawful workflow guidance. Conversation history remains in page memory and is not saved by the website. |

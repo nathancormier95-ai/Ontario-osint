@@ -41,3 +41,6 @@
 - [x] Inspect the uploaded OSINT scanner archive and classify each tool by dependencies, privacy risks, and lawful integration fit.
 - [x] Adapt approved archive tools to the Ontario Research Hub’s source-led, privacy-first workflows.
 - [x] Test, publish, commit, and push the approved tool integrations to `nathancormier95-ai/Ontario-osint`.
+- [x] Review the next archive tool candidates and select a privacy-preserving Ontario Research Hub adaptation.
+- [x] Implement the selected archive-derived utility with clear user-controlled data boundaries.
+- [x] Test, publish, commit, and push the continued archive adaptation to `nathancormier95-ai/Ontario-osint`.
