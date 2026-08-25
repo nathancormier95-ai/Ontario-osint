@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { citationSyncSettings, InsertUser, syncedCitationEntries, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,60 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export type CitationSyncInput = {
+  id: string;
+  sourceTitle: string;
+  sourceUrl: string;
+  accessedOn: string;
+  purpose: string;
+  notes: string;
+  savedAt: string;
+};
+
+export async function getCitationSyncState(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const [setting] = await db.select().from(citationSyncSettings).where(eq(citationSyncSettings.userId, userId)).limit(1);
+  const entries = setting
+    ? await db.select().from(syncedCitationEntries).where(eq(syncedCitationEntries.userId, userId)).orderBy(desc(syncedCitationEntries.updatedAt))
+    : [];
+
+  return { enabled: Boolean(setting), consentedAt: setting?.consentedAt ?? null, entries };
+}
+
+export async function enableCitationSync(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const now = new Date();
+  await db.insert(citationSyncSettings).values({ userId, consentedAt: now }).onDuplicateKeyUpdate({ set: { consentedAt: now } });
+  return getCitationSyncState(userId);
+}
+
+export async function replaceSyncedCitations(userId: number, entries: CitationSyncInput[]) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const [setting] = await db.select().from(citationSyncSettings).where(eq(citationSyncSettings.userId, userId)).limit(1);
+  if (!setting) return null;
+
+  await db.transaction(async (tx) => {
+    await tx.delete(syncedCitationEntries).where(eq(syncedCitationEntries.userId, userId));
+    if (entries.length) {
+      await tx.insert(syncedCitationEntries).values(entries.map((entry) => ({ ...entry, userId })));
+    }
+  });
+
+  return getCitationSyncState(userId);
+}
+
+export async function disconnectCitationSync(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  await db.transaction(async (tx) => {
+    await tx.delete(syncedCitationEntries).where(eq(syncedCitationEntries.userId, userId));
+    await tx.delete(citationSyncSettings).where(eq(citationSyncSettings.userId, userId));
+  });
+}

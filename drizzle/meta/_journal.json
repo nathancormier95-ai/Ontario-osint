@@ -8,6 +8,13 @@
       "when": 1787668316814,
       "tag": "0000_stale_justin_hammer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1787686155540,
+      "tag": "0001_rare_titanium_man",
+      "breakpoints": true
     }
   ]
 }

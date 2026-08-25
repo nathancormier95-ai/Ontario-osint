@@ -11,7 +11,7 @@ Ontario Research Hub is a **Manus-hosted** source directory and research workspa
 | Public-source directory | Curated direct links to Ontario business, land, court, archive, legal, regulatory, provincial-data, and municipal-data sources. |
 | Guided workflows | User-controlled exact-name and public-profile search shortcuts plus a local email-format check. |
 | Privacy-first guidance | Corporate research starts with the entity; land research starts with the parcel. The site includes purpose, minimization, access-control, retention, and verification controls. |
-| Citation log | Optional source-level citations stored only in the visitor’s browser, exportable directly as CSV or Markdown. |
+| Citation log | Optional source-level citations stored in the visitor’s browser by default, exportable as CSV or Markdown, with an explicit-consent account sync option. |
 | Research guide | A signed-in, server-side assistant for source selection, citation practice, privacy controls, and lawful workflow guidance. Conversation history remains in page memory and is not saved by the website. |
 | Accounts | Manus OAuth sign-up/sign-in for the optional research guide. The source directory and local citation log remain usable without an account. |
 | Payments | A configurable PayPal **hosted payment link**; payment entry occurs on PayPal, not in the app. |
@@ -19,6 +19,10 @@ Ontario Research Hub is a **Manus-hosted** source directory and research workspa
 ## Hosting and accounts
 
 The live application is hosted on Manus because OAuth sessions and server-side AI chat need a secure runtime. The app uses the platform-provided account flow; do not add credentials or OAuth keys to the repository. Visitors can create an account or sign in from the field-guide sidebar or mobile menu.
+
+## Citation-log sync and consent
+
+The citation log remains **browser-local by default**. A signed-in researcher may explicitly opt in to account sync by confirming that the current local citation title, URL, access date, purpose, notes, and saved date will be copied to their account. Sync is manual: local changes are never uploaded automatically. A researcher can restore the account copy to a browser, refresh its status, or use **Disconnect and delete account copy** to permanently remove all synced citations without affecting the local browser log.
 
 The research guide is intentionally safety-bounded. It is not a person lookup, device or phone intelligence tool, network scanner, or private-data service. Do not enter personal identifiers, credentials, payment data, confidential records, or other sensitive information into the guide.
 

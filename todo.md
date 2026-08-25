@@ -34,3 +34,7 @@
 - [x] Review the uploaded `AIAssistant.tsx` component for dependencies, data handling, and safe integration points.
 - [x] Adapt the uploaded assistant into the site with privacy-conscious tool-selection guidance and HTML-compatible presentation.
 - [x] Test, commit, and push the account and assistant integration to `nathancormier95-ai/Ontario-osint`.
+- [x] Define explicit consent, retention, and deletion behavior for account-backed citation sync.
+- [x] Add a user-owned citation-log schema and protected synchronization procedures.
+- [x] Add consent controls, sync status, and disconnect/delete options to the citation-log interface.
+- [x] Test, publish, commit, and push the consent-based citation-sync feature to `nathancormier95-ai/Ontario-osint`.
