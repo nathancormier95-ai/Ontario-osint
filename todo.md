@@ -18,3 +18,6 @@
 - [x] Add municipality metadata to the municipal open-data resources.
 - [x] Implement an accessible city selector that combines with the existing category filter.
 - [x] Test, commit, and push the city-filter update to `nathancormier95-ai/Ontario-osint`.
+- [x] Implement a visible, keyboard-accessible mobile navigation drawer for the sidebar sections.
+- [x] Refine mobile spacing, controls, and source-ledger layout for narrow screens.
+- [x] Test mobile and desktop navigation, commit, and push the responsive update to `nathancormier95-ai/Ontario-osint`.

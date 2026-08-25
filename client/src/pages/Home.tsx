@@ -18,6 +18,7 @@ import {
   Landmark,
   MailCheck,
   MapPinned,
+  Menu,
   Search,
   ShieldCheck,
   Sparkles,
@@ -27,6 +28,7 @@ import type { LucideIcon } from "lucide-react";
 import { toast } from "sonner";
 import { resources } from "@/lib/resources";
 import { isPayPalConfigured, siteConfig } from "@/lib/site-config";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 type WorkbenchTab = "name" | "social" | "email";
 
@@ -88,6 +90,7 @@ export default function Home() {
   const [resourceFilter, setResourceFilter] = useState("All");
   const [municipalityFilter, setMunicipalityFilter] = useState("All municipalities");
   const [activeSection, setActiveSection] = useState<(typeof sectionNav)[number]["id"]>("workbench");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const categories = ["All", ...Array.from(new Set(resources.map((resource) => resource.category)))];
   const municipalities = Array.from(
@@ -174,7 +177,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#f4f1e8] text-[#152327] selection:bg-[#c6e4e9] selection:text-[#123747]">
       <div className="paper-grain pointer-events-none fixed inset-0 z-40 opacity-70" />
       <div className="relative mx-auto flex min-h-screen max-w-[1680px] flex-col lg:flex-row">
-        <aside className="relative isolate z-20 overflow-hidden border-b border-[#2c6467] bg-[#12393f] px-5 py-4 text-[#ecf0e7] shadow-[0_12px_36px_rgba(7,31,35,0.18)] lg:sticky lg:top-0 lg:h-screen lg:w-[296px] lg:flex-none lg:border-b-0 lg:border-r lg:px-7 lg:py-8">
+        <aside className="sticky top-0 isolate z-20 overflow-hidden border-b border-[#2c6467] bg-[#12393f] px-5 py-3 text-[#ecf0e7] shadow-[0_12px_36px_rgba(7,31,35,0.18)] lg:h-screen lg:w-[296px] lg:flex-none lg:border-b-0 lg:border-r lg:px-7 lg:py-8">
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(224,244,234,0.05)_1px,transparent_1px),linear-gradient(rgba(224,244,234,0.04)_1px,transparent_1px)] bg-[size:24px_24px]" />
           <div className="pointer-events-none absolute bottom-0 left-7 top-0 hidden w-px bg-[#4e8080] opacity-60 lg:block" />
           <div className="relative flex h-full flex-col">
@@ -197,7 +200,44 @@ export default function Home() {
                 </span>
               </span>
             </button>
-            <span className="hidden h-8 border-l border-[#4e8080] lg:block" />
+            <div className="flex items-center gap-3 lg:hidden">
+              <span className="h-7 border-l border-[#4e8080]" />
+              <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+                <SheetTrigger asChild>
+                  <button type="button" className="inline-flex items-center gap-2 border border-[#89b9b4] bg-[#1b4a50] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#f0eee3] transition-colors hover:bg-[#25565b]" aria-label="Open site navigation">
+                    <Menu className="h-4 w-4" /> Menu
+                  </button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[88vw] max-w-[360px] gap-0 border-[#4e8080] bg-[#12393f] p-0 text-[#edf1e7] sm:max-w-[360px]">
+                  <SheetHeader className="border-b border-[#4e8080] p-6 pr-14 text-left">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-11 w-11 items-center justify-center border border-[#80b9b6] bg-[#f0ede2]"><img src={visualAssets.logo} alt="" className="h-9 w-9 object-contain" /></span>
+                      <div>
+                        <SheetTitle className="font-display text-2xl tracking-[-0.04em] text-[#f1eee2]">Ontario Research Hub</SheetTitle>
+                        <SheetDescription className="mt-1 font-mono text-[9px] uppercase tracking-[0.17em] text-[#9fd5cf]">Field guide · public sources</SheetDescription>
+                      </div>
+                    </div>
+                  </SheetHeader>
+                  <nav className="flex flex-col gap-2 p-5" aria-label="Mobile navigation">
+                    {sectionNav.map(({ number, label, id, detail }) => {
+                      const isCurrent = activeSection === id;
+                      return (
+                        <button key={id} type="button" onClick={() => { navigateToSection(id); setMobileNavOpen(false); }} aria-current={isCurrent ? "page" : undefined} className={`flex items-center gap-3 border-l-2 px-3 py-4 text-left transition-colors ${isCurrent ? "border-[#d5c86d] bg-[#e4eee7] text-[#12393f]" : "border-transparent text-[#d4e4dd] hover:border-[#80b9b6] hover:bg-[#1c4a50]"}`}>
+                          <span className={`font-mono text-[10px] ${isCurrent ? "text-[#0f5974]" : "text-[#83b5b0]"}`}>{number}</span>
+                          <span className="min-w-0"><span className="block text-sm font-semibold leading-none">{label}</span><span className={`mt-1 block font-mono text-[8px] uppercase tracking-[0.12em] ${isCurrent ? "text-[#3d6668]" : "text-[#8eb9b4]"}`}>{detail}</span></span>
+                          <ChevronRight className="ml-auto h-4 w-4" />
+                        </button>
+                      );
+                    })}
+                  </nav>
+                  <div className="mt-auto border-t border-[#4e8080] p-5">
+                    <button type="button" onClick={() => { navigateToSection("support"); setMobileNavOpen(false); }} className="flex w-full items-center justify-between bg-[#d5c86d] px-4 py-3 text-left text-sm font-semibold text-[#14393d]">
+                      Support the desk <ArrowDownRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
 
           <div className="mt-8 hidden lg:block">
