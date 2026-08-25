@@ -24,3 +24,6 @@
 - [x] Add a privacy-first corporate-registry and land-title research section with documented research controls.
 - [x] Connect the new guidance section to desktop and mobile navigation.
 - [x] Test, commit, and push the research-guidance update to `nathancormier95-ai/Ontario-osint`.
+- [x] Define privacy-preserving, browser-local citation-log fields and export formats.
+- [x] Implement citation-log creation, local persistence, deletion, and CSV/Markdown exports.
+- [x] Test, commit, and push the citation-log feature to `nathancormier95-ai/Ontario-osint`.

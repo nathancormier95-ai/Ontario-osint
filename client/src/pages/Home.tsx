@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { resources } from "@/lib/resources";
 import { isPayPalConfigured, siteConfig } from "@/lib/site-config";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { CitationLog } from "@/components/CitationLog";
 
 type WorkbenchTab = "name" | "social" | "email";
 
@@ -50,7 +51,8 @@ const sectionNav = [
   { number: "02", label: "Source ledger", id: "sources", detail: `${resources.length} direct sources` },
   { number: "03", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
   { number: "04", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
-  { number: "05", label: "Support desk", id: "support", detail: "Hosted checkout" },
+  { number: "05", label: "Citation log", id: "citation-log", detail: "Browser-local" },
+  { number: "06", label: "Support desk", id: "support", detail: "Hosted checkout" },
 ] as const;
 
 const visualAssets = {
@@ -596,10 +598,12 @@ export default function Home() {
             </div>
           </section>
 
+          <CitationLog />
+
           <section id="support" className="scroll-mt-6 bg-[#cbdcd4] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 border border-[#97b8b0] bg-[#eaf0e8] p-6 shadow-[9px_9px_0_rgba(15,89,116,0.16)] lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">05 · Support desk</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">06 · Support desk</p>
                 <h2 className="mt-3 font-display text-4xl tracking-[-0.05em] text-[#19383e] md:text-5xl">Keep the source ledger open.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-6 text-[#52625f]">This GitHub-hosted front end uses a PayPal hosted checkout link, so payment entry occurs on PayPal rather than on this site. Add your approved hosted button URL, terms, privacy notice, and refund policy before enabling a live payment page.</p>
               </div>
