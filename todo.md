@@ -15,3 +15,6 @@
 - [x] Add verified municipal open-data portals to the resource ledger.
 - [x] Redesign the sidebar navigation with stronger contrast, more distinctive hierarchy, and visible active-state cues.
 - [x] Test, commit, and push the municipal-data expansion to `nathancormier95-ai/Ontario-osint`.
+- [x] Add municipality metadata to the municipal open-data resources.
+- [x] Implement an accessible city selector that combines with the existing category filter.
+- [x] Test, commit, and push the city-filter update to `nathancormier95-ai/Ontario-osint`.

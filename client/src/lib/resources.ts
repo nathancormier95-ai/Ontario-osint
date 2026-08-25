@@ -8,6 +8,7 @@ export type Resource = {
   href: string;
   category: "Public records" | "Legal" | "Open data" | "Archives" | "Property" | "Regulatory";
   note: string;
+  municipality?: "Toronto" | "Ottawa" | "Hamilton" | "Mississauga" | "Brampton";
 };
 
 export const resources: Resource[] = [
@@ -90,6 +91,7 @@ export const resources: Resource[] = [
     href: "https://open.toronto.ca/",
     category: "Open data",
     note: "City of Toronto · official open-data portal",
+    municipality: "Toronto",
   },
   {
     title: "Open Ottawa",
@@ -98,6 +100,7 @@ export const resources: Resource[] = [
     href: "https://open.ottawa.ca/",
     category: "Open data",
     note: "City of Ottawa · official open-data portal",
+    municipality: "Ottawa",
   },
   {
     title: "Hamilton Open Data",
@@ -106,6 +109,7 @@ export const resources: Resource[] = [
     href: "https://open.hamilton.ca/",
     category: "Open data",
     note: "City of Hamilton · catalogue and licence terms",
+    municipality: "Hamilton",
   },
   {
     title: "Mississauga Open Data",
@@ -114,6 +118,7 @@ export const resources: Resource[] = [
     href: "https://data.mississauga.ca/",
     category: "Open data",
     note: "City of Mississauga · official data hub",
+    municipality: "Mississauga",
   },
   {
     title: "Brampton GeoHub",
@@ -122,5 +127,6 @@ export const resources: Resource[] = [
     href: "https://geohub.brampton.ca/pages/data",
     category: "Open data",
     note: "City of Brampton · public open-data hub",
+    municipality: "Brampton",
   },
 ];

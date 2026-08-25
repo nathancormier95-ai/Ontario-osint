@@ -86,15 +86,21 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [resourceFilter, setResourceFilter] = useState("All");
+  const [municipalityFilter, setMunicipalityFilter] = useState("All municipalities");
   const [activeSection, setActiveSection] = useState<(typeof sectionNav)[number]["id"]>("workbench");
 
   const categories = ["All", ...Array.from(new Set(resources.map((resource) => resource.category)))];
+  const municipalities = Array.from(
+    new Set(resources.flatMap((resource) => (resource.municipality ? [resource.municipality] : []))),
+  );
   const visibleResources = useMemo(
     () =>
-      resourceFilter === "All"
-        ? resources
-        : resources.filter((resource) => resource.category === resourceFilter),
-    [resourceFilter],
+      resources.filter(
+        (resource) =>
+          (resourceFilter === "All" || resource.category === resourceFilter) &&
+          (municipalityFilter === "All municipalities" || resource.municipality === municipalityFilter),
+      ),
+    [municipalityFilter, resourceFilter],
   );
 
   const normalizedEmail = email.trim();
@@ -157,6 +163,11 @@ export default function Home() {
   function navigateToSection(id: (typeof sectionNav)[number]["id"]) {
     setActiveSection(id);
     scrollToId(id);
+  }
+
+  function handleMunicipalityChange(value: string) {
+    setMunicipalityFilter(value);
+    if (value !== "All municipalities") setResourceFilter("Open data");
   }
 
   return (
@@ -422,7 +433,20 @@ export default function Home() {
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b3d6d0]">02 · Source ledger</p>
                 <h2 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em]">Direct sources, stated scope.</h2>
                 <p className="mt-5 max-w-md text-sm leading-6 text-[#c5d2ca]">Start from the issuing institution or a recognized legal-information publisher. Open each destination in a new tab and follow its specific access terms.</p>
-                <div className="mt-8 flex flex-wrap gap-2" aria-label="Filter resource categories">
+                <div className="mt-8 border-y border-[#3f696b] py-5">
+                  <label className="block">
+                    <span className="flex items-center justify-between gap-4 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#a8cac6]">
+                      Municipality focus
+                      {municipalityFilter !== "All municipalities" && <span className="bg-[#d5c86d] px-2 py-1 text-[8px] text-[#16373c]">OPEN DATA ONLY</span>}
+                    </span>
+                    <select value={municipalityFilter} onChange={(event) => handleMunicipalityChange(event.target.value)} className="mt-3 w-full border border-[#6b9190] bg-[#143e43] px-3 py-3 text-sm font-semibold text-[#edf3eb] outline-none transition-colors focus:border-[#d5c86d] focus:ring-1 focus:ring-[#d5c86d]">
+                      <option value="All municipalities">All municipalities</option>
+                      {municipalities.map((municipality) => <option key={municipality} value={municipality}>{municipality}</option>)}
+                    </select>
+                  </label>
+                  <p className="mt-2 text-xs leading-5 text-[#a7c0ba]">Choose a city to show its municipal open-data portal; provincial and citywide sources remain available under all municipalities.</p>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2" aria-label="Filter resource categories">
                   {categories.map((category) => (
                     <button key={category} type="button" onClick={() => setResourceFilter(category)} className={`border px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors ${resourceFilter === category ? "border-[#c9eeeb] bg-[#c9eeeb] text-[#17393f]" : "border-[#52767a] text-[#d7e4dc] hover:border-[#c9eeeb] hover:text-white"}`}>{category}</button>
                   ))}
@@ -431,12 +455,19 @@ export default function Home() {
               <div className="grid gap-px bg-[#52767a] sm:grid-cols-2">
                 {visibleResources.map((resource, index) => (
                   <a key={resource.title} href={resource.href} target="_blank" rel="noreferrer" className="group flex min-h-[220px] flex-col bg-[#17393f] p-5 transition-colors hover:bg-[#20494c]">
-                    <div className="flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#a8cac6]">{String(index + 1).padStart(2, "0")} · {resource.category}</span><ExternalLink className="h-4 w-4 text-[#a8cac6] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div>
+                    <div className="flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#a8cac6]">{String(index + 1).padStart(2, "0")} · {resource.category}{resource.municipality ? ` · ${resource.municipality}` : ""}</span><ExternalLink className="h-4 w-4 text-[#a8cac6] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div>
                     <h3 className="mt-6 font-display text-3xl leading-none tracking-[-0.04em] text-[#f3f4eb]">{resource.title}</h3>
                     <p className="mt-3 text-sm leading-6 text-[#b7c7bf]">{resource.description}</p>
                     <span className="mt-auto pt-4 font-mono text-[9px] uppercase tracking-[0.1em] text-[#8fb8b3]">{resource.note}</span>
                   </a>
                 ))}
+                {visibleResources.length === 0 && (
+                  <div className="flex min-h-[220px] flex-col justify-center bg-[#17393f] p-6 text-[#c5d2ca] sm:col-span-2">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#a8cac6]">No matching source</p>
+                    <p className="mt-3 max-w-md font-display text-3xl leading-none text-[#f3f4eb]">Try a different filter combination.</p>
+                    <button type="button" onClick={() => { setResourceFilter("All"); setMunicipalityFilter("All municipalities"); }} className="mt-5 w-fit border border-[#c9eeeb] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#c9eeeb] hover:bg-[#c9eeeb] hover:text-[#17393f]">Clear filters</button>
+                  </div>
+                )}
               </div>
             </div>
           </section>
