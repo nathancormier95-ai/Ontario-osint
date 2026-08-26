@@ -214,7 +214,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f1e8] text-[#152327] selection:bg-[#c6e4e9] selection:text-[#123747]">
+    <div className="site-shell min-h-screen bg-[#f4f1e8] text-[#152327] selection:bg-[#c6e4e9] selection:text-[#123747]">
       <div className="paper-grain pointer-events-none fixed inset-0 z-40 opacity-70" />
       <div className="relative mx-auto flex min-h-screen max-w-[1680px] flex-col lg:flex-row">
         <aside className="sticky top-0 isolate z-20 overflow-hidden border-b border-[#2c6467] bg-[#12393f] px-5 py-3 text-[#ecf0e7] shadow-[0_12px_36px_rgba(7,31,35,0.18)] lg:h-screen lg:w-[296px] lg:flex-none lg:border-b-0 lg:border-r lg:px-7 lg:py-8">
@@ -338,7 +338,7 @@ export default function Home() {
         </aside>
 
         <main className="min-w-0 flex-1" id="top">
-          <section className="relative overflow-hidden border-b border-[#d7d0c4] bg-[#dce9e5]">
+          <section className="hero-signal relative overflow-hidden border-b border-[#d7d0c4] bg-[#dce9e5]">
             <img
               src={visualAssets.hero}
               alt="Editorial research desk with Ontario map materials and magnifying lens"
@@ -358,6 +358,11 @@ export default function Home() {
                   <p className="mt-7 max-w-xl text-base leading-7 text-[#3a5050] md:text-lg">
                     A responsible research desk for locating Ontario public records, legal information, open data, and public-profile leads—without collecting identifiers on this site.
                   </p>
+                  <div className="mt-8 grid max-w-xl grid-cols-3 gap-2 border-t border-[#73959a]/40 pt-5" aria-label="Research workspace principles">
+                    <div className="hero-metric"><p className="font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-[#176c75]">01 · Private</p><p className="mt-2 text-xs font-semibold leading-4 text-[#244d50]">Browser-first by default.</p></div>
+                    <div className="hero-metric"><p className="font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-[#176c75]">02 · Direct</p><p className="mt-2 text-xs font-semibold leading-4 text-[#244d50]">Sources, not profiles.</p></div>
+                    <div className="hero-metric"><p className="font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-[#176c75]">03 · Guided</p><p className="mt-2 text-xs font-semibold leading-4 text-[#244d50]">Every action stays yours.</p></div>
+                  </div>
                 </div>
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                   <button
@@ -379,7 +384,7 @@ export default function Home() {
               </div>
 
               <div className="hidden items-end justify-end xl:flex">
-                <div className="max-w-[260px] border-l border-[#58969b] bg-[#e9eee3]/90 p-5 shadow-[8px_8px_0_rgba(15,89,116,0.15)] backdrop-blur">
+                <div className="signal-card max-w-[260px] border-l border-[#58969b] bg-[#e9eee3]/90 p-5 shadow-[8px_8px_0_rgba(15,89,116,0.15)] backdrop-blur">
                   <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#0f5974]">Field note 01</p>
                   <p className="mt-3 font-display text-2xl leading-none text-[#183a40]">A lead is not a conclusion.</p>
                   <p className="mt-3 text-xs leading-5 text-[#4b5c57]">Record where information came from and respect each source’s terms, access limits, and publication rules.</p>
@@ -492,7 +497,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <aside className="relative overflow-hidden border border-[#b3c9c3] bg-[#dce9e5] p-6 shadow-[6px_6px_0_rgba(15,89,116,0.12)] xl:mt-14">
+              <aside className="card-lift relative overflow-hidden border border-[#b3c9c3] bg-[#dce9e5] p-6 shadow-[6px_6px_0_rgba(15,89,116,0.12)] xl:mt-14">
                 <img src={visualAssets.workbench} alt="Research notebook materials arranged on a desk" className="absolute inset-0 h-full w-full object-cover opacity-15 mix-blend-multiply" />
                 <div className="relative">
                   <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f5974]">Before you search</p>
@@ -543,7 +548,7 @@ export default function Home() {
               </div>
               <div className="grid gap-px bg-[#52767a] sm:grid-cols-2">
                 {visibleResources.map((resource, index) => (
-                  <a key={resource.title} href={resource.href} target="_blank" rel="noreferrer" className="group flex min-h-[220px] flex-col bg-[#17393f] p-5 transition-colors hover:bg-[#20494c]">
+                  <a key={resource.title} href={resource.href} target="_blank" rel="noreferrer" className="card-lift group flex min-h-[220px] flex-col bg-[#17393f] p-5 transition-colors hover:bg-[#20494c]">
                     <div className="flex items-center justify-between gap-3"><span className={`font-mono text-[9px] uppercase tracking-[0.12em] ${categoryBadgeStyles[resource.category]} px-2.5 py-1.5`}>{String(index + 1).padStart(2, "0")} · {resource.category}</span><ExternalLink className="h-4 w-4 flex-none text-[#a8cac6] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div>
                     {resource.municipality && <span className="mt-3 w-fit border border-[#698d91] bg-[#234e52] px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-[#e7c96f]">{resource.municipality}</span>}
                     <h3 className="mt-6 font-display text-3xl leading-none tracking-[-0.04em] text-[#f3f4eb]">{resource.title}</h3>

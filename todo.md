@@ -62,3 +62,6 @@
 - [x] Build a signed-in personal dashboard with create, rename, delete, and collection-view workflows.
 - [x] Add explicit citation-to-collection assignment while keeping browser-local citations available by default.
 - [x] Test, publish, commit, and push the dashboard and collection-sync feature to `nathancormier95-ai/Ontario-osint`.
+- [x] Define a bolder, more contemporary visual direction for the research workspace while retaining Ontario civic character.
+- [x] Upgrade the core interface hierarchy, interaction states, and dashboard/citation presentation with distinctive visual details.
+- [ ] Validate the visual upgrade on desktop and mobile, run tests/build, publish, and push it to `nathancormier95-ai/Ontario-osint`.
