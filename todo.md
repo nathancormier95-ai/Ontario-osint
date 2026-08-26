@@ -72,4 +72,4 @@
 - [x] Curate additional official Ontario data sources with scope, access, and privacy notes.
 - [x] Build a dedicated Ontario Data page for provincial statistics, geospatial data, environmental data, and municipal portals.
 - [x] Add the Ontario Data page to desktop and mobile route navigation.
-- [ ] Validate the Ontario Data page on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
+- [x] Validate the Ontario Data page on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
