@@ -57,3 +57,8 @@
 - [x] Test, publish, commit, and push the approved-source self-check feature to `nathancormier95-ai/Ontario-osint`.
 - [x] Refine the visual system with a more colorful Ontario civic-research palette while preserving accessibility and readability.
 - [x] Test, publish, commit, and push the colorful interface refinement to `nathancormier95-ai/Ontario-osint`.
+- [x] Define user-owned research collections, citation-assignment, consent, and deletion boundaries.
+- [x] Add the collection schema, protected procedures, and migration for account-backed organization.
+- [x] Build a signed-in personal dashboard with create, rename, delete, and collection-view workflows.
+- [x] Add explicit citation-to-collection assignment while keeping browser-local citations available by default.
+- [x] Test, publish, commit, and push the dashboard and collection-sync feature to `nathancormier95-ai/Ontario-osint`.

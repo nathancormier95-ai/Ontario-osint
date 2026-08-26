@@ -75,6 +75,9 @@ export function CitationLog() {
   const { isAuthenticated, loading: accountLoading } = useAuth();
   const utils = trpc.useUtils();
   const syncStatus = trpc.citationSync.status.useQuery(undefined, { enabled: isAuthenticated, retry: false, refetchOnWindowFocus: false });
+  const syncEnabled = Boolean(syncStatus.data?.enabled);
+  const collectionState = trpc.researchCollections.overview.useQuery(undefined, { enabled: isAuthenticated && syncEnabled, retry: false, refetchOnWindowFocus: false });
+  const [collectionByCitation, setCollectionByCitation] = useState<Record<string, string>>({});
 
   const replaceMutation = trpc.citationSync.replace.useMutation({
     onSuccess: (state) => {
@@ -95,6 +98,13 @@ export function CitationLog() {
       toast.success("Account sync is disconnected and synced citations were deleted. Your local citation log remains on this device.");
     },
     onError: () => toast.error("The account copy could not be deleted. Your local citation log is unchanged."),
+  });
+  const assignmentMutation = trpc.researchCollections.assignCitation.useMutation({
+    onSuccess: (state) => {
+      utils.researchCollections.overview.setData(undefined, state);
+      toast.success("Citation assigned to your collection.");
+    },
+    onError: (error) => toast.error(error.message),
   });
 
   useEffect(() => {
@@ -221,7 +231,13 @@ export function CitationLog() {
     }
   }
 
-  const syncEnabled = Boolean(syncStatus.data?.enabled);
+  function assignToCollection(citationId: string) {
+    const collectionId = collectionByCitation[citationId];
+    if (!collectionId) { toast.error("Choose a collection before assigning this citation."); return; }
+    if (!collectionState.data?.citations.some((citation) => citation.id === citationId)) { toast.error("Sync this browser’s citation log first. Local-only citations remain on this device until you choose to sync."); return; }
+    assignmentMutation.mutate({ collectionId, citationId });
+  }
+
   const syncBusy = enableMutation.isPending || replaceMutation.isPending || disconnectMutation.isPending;
 
   return (
@@ -250,7 +266,7 @@ export function CitationLog() {
               {isAuthenticated && !syncStatus.isLoading && syncEnabled && <><div className="flex items-start gap-3"><Cloud className="mt-0.5 h-5 w-5 flex-none text-[#0f5974]" /><div><p className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#0f5974]">Account sync · active</p><p className="mt-2 text-xs leading-5 text-[#46615c]">{syncStatus.data?.entries.length ?? 0} citation{(syncStatus.data?.entries.length ?? 0) === 1 ? "" : "s"} are in the account copy. Use sync only when you want to replace that copy with this browser’s current local log.</p></div></div><div className="mt-4 flex flex-wrap gap-2"><Button type="button" size="sm" onClick={syncLocalLog} disabled={syncBusy} className="rounded-none bg-[#0f5974] text-white hover:bg-[#104b62]"><CloudUpload className="h-3.5 w-3.5" /> Sync current log</Button><Button type="button" variant="outline" size="sm" onClick={restoreAccountLog} disabled={syncBusy} className="rounded-none border-[#779b94] text-[#0f5974] hover:bg-white"><CloudDownload className="h-3.5 w-3.5" /> Restore account log</Button><Button type="button" variant="ghost" size="sm" onClick={() => syncStatus.refetch()} disabled={syncBusy} className="rounded-none text-[#46615c] hover:bg-white"><RefreshCcw className="h-3.5 w-3.5" /> Refresh</Button></div><div className="mt-4 border-t border-[#bfd0c9] pt-4"><Button type="button" variant="ghost" size="sm" onClick={disconnectAndDelete} disabled={syncBusy} className="rounded-none text-[#9a5144] hover:bg-[#f5e6df] hover:text-[#7f3f34]"><Trash2 className="h-3.5 w-3.5" /> Disconnect and delete account copy</Button><p className="mt-2 text-xs leading-5 text-[#6a7873]">This deletes only synced account citations. The local browser log stays on this device.</p></div></>}
             </div>
 
-            {entries.length ? <div className="mt-5 divide-y divide-[#d9d1c5] border-y border-[#d9d1c5]">{entries.map((entry) => <article key={entry.id} className="group py-4 first:pt-0 last:pb-0"><div className="flex items-start justify-between gap-4"><div className="min-w-0"><h4 className="font-display text-2xl leading-none tracking-[-0.035em] text-[#1b3b40]">{entry.sourceTitle}</h4><a href={entry.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 block truncate text-xs text-[#0f5974] underline-offset-2 hover:underline">{entry.sourceUrl}</a></div><Button type="button" variant="ghost" size="icon-sm" onClick={() => removeEntry(entry.id)} className="flex-none rounded-none text-[#9a5144] opacity-100 hover:bg-[#f5e6df] hover:text-[#7f3f34] sm:opacity-0 sm:group-hover:opacity-100" aria-label={`Remove ${entry.sourceTitle}`}><Trash2 className="h-4 w-4" /></Button></div><div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs leading-5 text-[#65736e]"><span><strong className="font-semibold text-[#425b57]">Accessed:</strong> {displayDate(entry.accessedOn)}</span>{entry.purpose && <span><strong className="font-semibold text-[#425b57]">Purpose:</strong> {entry.purpose}</span>}</div>{entry.notes && <p className="mt-2 text-xs leading-5 text-[#64716c]">{entry.notes}</p>}</article>)}</div> : <div className="mt-5 flex items-center gap-4 border border-dashed border-[#c8c1b5] bg-[#f8f5ee] p-5 text-[#63716d]"><FileText className="h-5 w-5 flex-none text-[#0f5974]" /><p className="text-sm leading-6">No citations are stored in this browser yet. Add your first source when you are ready to create a local record.</p></div>}
+            {entries.length ? <div className="mt-5 divide-y divide-[#d9d1c5] border-y border-[#d9d1c5]">{entries.map((entry) => <article key={entry.id} className="group py-4 first:pt-0 last:pb-0"><div className="flex items-start justify-between gap-4"><div className="min-w-0"><h4 className="font-display text-2xl leading-none tracking-[-0.035em] text-[#1b3b40]">{entry.sourceTitle}</h4><a href={entry.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 block truncate text-xs text-[#0f5974] underline-offset-2 hover:underline">{entry.sourceUrl}</a></div><Button type="button" variant="ghost" size="icon-sm" onClick={() => removeEntry(entry.id)} className="flex-none rounded-none text-[#9a5144] opacity-100 hover:bg-[#f5e6df] hover:text-[#7f3f34] sm:opacity-0 sm:group-hover:opacity-100" aria-label={`Remove ${entry.sourceTitle}`}><Trash2 className="h-4 w-4" /></Button></div><div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs leading-5 text-[#65736e]"><span><strong className="font-semibold text-[#425b57]">Accessed:</strong> {displayDate(entry.accessedOn)}</span>{entry.purpose && <span><strong className="font-semibold text-[#425b57]">Purpose:</strong> {entry.purpose}</span>}</div>{entry.notes && <p className="mt-2 text-xs leading-5 text-[#64716c]">{entry.notes}</p>}{isAuthenticated && syncEnabled && collectionState.data?.collections.length ? <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-[#d4ddd5] pt-3"><select value={collectionByCitation[entry.id] ?? ""} onChange={(event) => setCollectionByCitation((current) => ({ ...current, [entry.id]: event.target.value }))} className="h-9 min-w-48 border border-[#a9c5bc] bg-[#f8fcf8] px-2 text-xs text-[#294f50] outline-none focus:border-[#0f5974]"><option value="">Add to collection…</option>{collectionState.data.collections.map((collection) => <option key={collection.id} value={collection.id}>{collection.name}</option>)}</select><Button type="button" variant="outline" size="sm" onClick={() => assignToCollection(entry.id)} disabled={assignmentMutation.isPending} className="rounded-none border-[#779b94] text-[#0f5974] hover:bg-[#e5eee8]"><CloudUpload className="h-3.5 w-3.5" /> Assign synced citation</Button></div> : null}</article>)}</div> : <div className="mt-5 flex items-center gap-4 border border-dashed border-[#c8c1b5] bg-[#f8f5ee] p-5 text-[#63716d]"><FileText className="h-5 w-5 flex-none text-[#0f5974]" /><p className="text-sm leading-6">No citations are stored in this browser yet. Add your first source when you are ready to create a local record.</p></div>}
           </div>
         </div>
       </div>

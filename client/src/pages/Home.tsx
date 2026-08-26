@@ -34,6 +34,7 @@ import { isPayPalConfigured, siteConfig } from "@/lib/site-config";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CitationLog } from "@/components/CitationLog";
 import { EvidenceTools } from "@/components/EvidenceTools";
+import { PersonalDashboard } from "@/components/PersonalDashboard";
 import { ResearchAssistant } from "@/components/ResearchAssistant";
 import { SourceSelfCheck } from "@/components/SourceSelfCheck";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -62,6 +63,7 @@ const sectionNav = [
   { number: "04", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
   { number: "05", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
   { number: "06", label: "Citation log", id: "citation-log", detail: "Browser-local" },
+  { number: "06A", label: "Dashboard", id: "dashboard", detail: "Account collections" },
   { number: "07", label: "Research guide", id: "ai-guide", detail: "Account access" },
   { number: "08", label: "Support desk", id: "support", detail: "Hosted checkout" },
 ] as const;
@@ -644,6 +646,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          <PersonalDashboard />
 
           <CitationLog />
 

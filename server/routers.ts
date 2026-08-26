@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { aiAssistantRouter } from "./routers/aiAssistant";
 import { citationSyncRouter } from "./routers/citationSync";
+import { researchCollectionsRouter } from "./routers/researchCollections";
 import { sourceStatusRouter } from "./routers/sourceStatus";
 
 export const appRouter = router({
@@ -21,6 +22,7 @@ export const appRouter = router({
   }),
   aiAssistant: aiAssistantRouter,
   citationSync: citationSyncRouter,
+  researchCollections: researchCollectionsRouter,
   sourceStatus: sourceStatusRouter,
 
   // TODO: add feature routers here, e.g.

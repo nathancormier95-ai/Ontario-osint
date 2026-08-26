@@ -1,4 +1,4 @@
-import { index, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { foreignKey, index, int, mysqlEnum, mysqlTable, primaryKey, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -47,3 +47,31 @@ export const syncedCitationEntries = mysqlTable("synced_citation_entries", {
 }, (table) => [index("synced_citation_entries_user_idx").on(table.userId)]);
 
 export type SyncedCitationEntry = typeof syncedCitationEntries.$inferSelect;
+
+/** User-owned workspaces for organizing explicitly synced citations. */
+export const researchCollections = mysqlTable("research_collections", {
+  id: varchar("id", { length: 64 }).primaryKey().notNull(),
+  userId: int("userId").notNull(),
+  name: varchar("name", { length: 120 }).notNull(),
+  description: text("description").notNull(),
+  accent: varchar("accent", { length: 24 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [
+  index("research_collections_user_idx").on(table.userId),
+  foreignKey({ columns: [table.userId], foreignColumns: [users.id], name: "rc_user_fk" }).onDelete("cascade"),
+]);
+
+/** A collection references an existing synced citation; it never duplicates citation content. */
+export const researchCollectionCitations = mysqlTable("research_collection_citations", {
+  collectionId: varchar("collectionId", { length: 64 }).notNull(),
+  citationId: varchar("citationId", { length: 64 }).notNull(),
+  addedAt: timestamp("addedAt").defaultNow().notNull(),
+}, (table) => [
+  primaryKey({ columns: [table.collectionId, table.citationId] }),
+  index("research_collection_citations_citation_idx").on(table.citationId),
+  foreignKey({ columns: [table.collectionId], foreignColumns: [researchCollections.id], name: "rcc_collection_fk" }).onDelete("cascade"),
+  foreignKey({ columns: [table.citationId], foreignColumns: [syncedCitationEntries.id], name: "rcc_citation_fk" }).onDelete("cascade"),
+]);
+
+export type ResearchCollection = typeof researchCollections.$inferSelect;
