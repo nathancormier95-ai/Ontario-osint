@@ -83,3 +83,13 @@
 - [x] Add a conditional “Scroll for more” cue to desktop and mobile navigation when menu items are clipped.
 - [x] Validate the cue at short and full menu heights, publish, and push the navigation-cue fix to `nathancormier95-ai/Ontario-osint`.
 
+- [x] Define and document Research Sandbox boundaries that exclude virtual identities, credentials, anonymous accounts, external-system access, and evasion features.
+- [x] Curate official local simulator and lawful software-testing environment references.
+- [x] Build a local-first Research Sandbox page with workstation/device planning and evidence-handling checklists.
+- [x] Add the Research Sandbox to desktop and mobile navigation.
+- [ ] Validate the sandbox boundaries and responsive route, publish, and push it to `nathancormier95-ai/Ontario-osint`.
+
+- [x] Define and document OSINT Resources curation boundaries that exclude invasive lookup, credential, device, telecom, financial, evasion, scanning, and scraping capabilities.
+- [x] Review and categorize eligible lawful public-resource links from the supplied Start.me directory.
+- [x] Build a dedicated OSINT Resources page and add it to desktop/mobile navigation.
+- [ ] Validate the curated OSINT Resources route, publish, and push it to `nathancormier95-ai/Ontario-osint`.

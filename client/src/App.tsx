@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 const workspacePaths = [
   "/workbench",
   "/evidence-tools",
+  "/research-sandbox",
+  "/osint-resources",
   "/sources",
   "/ontario-data",
   "/source-status",

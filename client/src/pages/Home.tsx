@@ -35,8 +35,10 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { CitationLog } from "@/components/CitationLog";
 import { EvidenceTools } from "@/components/EvidenceTools";
 import { OntarioData } from "@/components/OntarioData";
+import { OsintResources } from "@/components/OsintResources";
 import { PersonalDashboard } from "@/components/PersonalDashboard";
 import { ResearchAssistant } from "@/components/ResearchAssistant";
+import { ResearchSandbox } from "@/components/ResearchSandbox";
 import { SourceSelfCheck } from "@/components/SourceSelfCheck";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
@@ -60,6 +62,8 @@ const socialPlatforms = [
 const sectionNav = [
   { number: "01", label: "Workbench", id: "workbench", path: "/workbench", detail: "Guided leads" },
   { number: "02", label: "Evidence tools", id: "evidence-tools", path: "/evidence-tools", detail: "Local & outbound" },
+  { number: "02A", label: "Research sandbox", id: "research-sandbox", path: "/research-sandbox", detail: "Local test plan" },
+  { number: "02B", label: "OSINT resources", id: "osint-resources", path: "/osint-resources", detail: "Curated links" },
   { number: "03", label: "Source ledger", id: "sources", path: "/sources", detail: `${resources.length} direct sources` },
   { number: "03B", label: "Ontario data", id: "ontario-data", path: "/ontario-data", detail: "Public datasets" },
   { number: "03A", label: "Source status", id: "source-status", path: "/source-status", detail: "On-demand monitor" },
@@ -542,6 +546,10 @@ export default function Home() {
           </section>}
 
           {activeSection === "evidence-tools" && <EvidenceTools />}
+
+          {activeSection === "research-sandbox" && <ResearchSandbox />}
+
+          {activeSection === "osint-resources" && <OsintResources />}
 
           {activeSection === "sources" && <section id="sources" className="border-y border-[#b6c7c1] bg-[#17393f] px-6 py-14 text-[#edf1e7] sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 xl:grid-cols-[0.78fr_1.22fr]">
