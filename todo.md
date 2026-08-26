@@ -77,3 +77,6 @@
 - [x] Add structured Ontario research planning, source-selection, citation, and data-guidance interactions.
 - [x] Improve assistant response rendering and guided prompt starters without storing chat content.
 - [x] Add safety-focused tests, validate desktop/mobile behavior, publish, and push the assistant upgrade to `nathancormier95-ai/Ontario-osint`.
+- [ ] Add an accessible visible scroll bar to the shared desktop and mobile navigation so the final menu items remain reachable.
+- [ ] Validate menu scrolling at desktop/mobile heights, run checks, publish, and push the navigation fix to `nathancormier95-ai/Ontario-osint`.
+
