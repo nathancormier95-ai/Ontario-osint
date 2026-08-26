@@ -65,3 +65,7 @@
 - [x] Define a bolder, more contemporary visual direction for the research workspace while retaining Ontario civic character.
 - [x] Upgrade the core interface hierarchy, interaction states, and dashboard/citation presentation with distinctive visual details.
 - [x] Validate the visual upgrade on desktop and mobile, run tests/build, publish, and push it to `nathancormier95-ai/Ontario-osint`.
+- [x] Define a dedicated route for each primary research section and retain a focused home entry point.
+- [x] Extract the shared desktop sidebar and mobile navigation into a persistent application shell with active route states.
+- [x] Move each existing section into its own responsive page without changing privacy, consent, or account behavior.
+- [ ] Validate direct navigation and key workflows on desktop/mobile, publish, and push the routed workspace to `nathancormier95-ai/Ontario-osint`.

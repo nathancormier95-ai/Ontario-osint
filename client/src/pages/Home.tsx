@@ -39,6 +39,7 @@ import { ResearchAssistant } from "@/components/ResearchAssistant";
 import { SourceSelfCheck } from "@/components/SourceSelfCheck";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
+import { useLocation } from "wouter";
 
 type WorkbenchTab = "name" | "social" | "email";
 
@@ -56,16 +57,16 @@ const socialPlatforms = [
 ];
 
 const sectionNav = [
-  { number: "01", label: "Workbench", id: "workbench", detail: "Guided leads" },
-  { number: "02", label: "Evidence tools", id: "evidence-tools", detail: "Local & outbound" },
-  { number: "03", label: "Source ledger", id: "sources", detail: `${resources.length} direct sources` },
-  { number: "03A", label: "Source status", id: "source-status", detail: "On-demand monitor" },
-  { number: "04", label: "Responsible use", id: "responsible-use", detail: "Method protocol" },
-  { number: "05", label: "Registry & land", id: "registry-guide", detail: "Privacy-first" },
-  { number: "06", label: "Citation log", id: "citation-log", detail: "Browser-local" },
-  { number: "06A", label: "Dashboard", id: "dashboard", detail: "Account collections" },
-  { number: "07", label: "Research guide", id: "ai-guide", detail: "Account access" },
-  { number: "08", label: "Support desk", id: "support", detail: "Hosted checkout" },
+  { number: "01", label: "Workbench", id: "workbench", path: "/workbench", detail: "Guided leads" },
+  { number: "02", label: "Evidence tools", id: "evidence-tools", path: "/evidence-tools", detail: "Local & outbound" },
+  { number: "03", label: "Source ledger", id: "sources", path: "/sources", detail: `${resources.length} direct sources` },
+  { number: "03A", label: "Source status", id: "source-status", path: "/source-status", detail: "On-demand monitor" },
+  { number: "04", label: "Responsible use", id: "responsible-use", path: "/responsible-use", detail: "Method protocol" },
+  { number: "05", label: "Registry & land", id: "registry-guide", path: "/registry-guide", detail: "Privacy-first" },
+  { number: "06", label: "Citation log", id: "citation-log", path: "/citation-log", detail: "Browser-local" },
+  { number: "06A", label: "Dashboard", id: "dashboard", path: "/dashboard", detail: "Account collections" },
+  { number: "07", label: "Research guide", id: "ai-guide", path: "/ai-guide", detail: "Account access" },
+  { number: "08", label: "Support desk", id: "support", path: "/support", detail: "Hosted checkout" },
 ] as const;
 
 const categoryBadgeStyles: Record<Resource["category"], string> = {
@@ -106,6 +107,7 @@ function scrollToId(id: string) {
 
 export default function Home() {
   const { user, loading: accountLoading, isAuthenticated, logout } = useAuth();
+  const [location, setLocation] = useLocation();
 
   const [activeTab, setActiveTab] = useState<WorkbenchTab>("name");
   const [firstName, setFirstName] = useState("");
@@ -116,8 +118,9 @@ export default function Home() {
   const [consent, setConsent] = useState(false);
   const [resourceFilter, setResourceFilter] = useState("All");
   const [municipalityFilter, setMunicipalityFilter] = useState("All municipalities");
-  const [activeSection, setActiveSection] = useState<(typeof sectionNav)[number]["id"]>("workbench");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  const activeSection = sectionNav.find((section) => section.path === location)?.id ?? "home";
 
   const categories = ["All", ...Array.from(new Set(resources.map((resource) => resource.category)))];
   const municipalities = Array.from(
@@ -137,21 +140,8 @@ export default function Home() {
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
 
   useEffect(() => {
-    const sections = sectionNav
-      .map(({ id }) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const activeEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
-        if (activeEntry) setActiveSection(activeEntry.target.id as (typeof sectionNav)[number]["id"]);
-      },
-      { rootMargin: "-14% 0px -62% 0px", threshold: [0.1, 0.35, 0.6] },
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location]);
 
   function requireConsent() {
     if (consent) return true;
@@ -191,8 +181,7 @@ export default function Home() {
   }
 
   function navigateToSection(id: (typeof sectionNav)[number]["id"]) {
-    setActiveSection(id);
-    scrollToId(id);
+    setLocation(sectionNav.find((section) => section.id === id)?.path ?? "/");
   }
 
   function handleMunicipalityChange(value: string) {
@@ -224,7 +213,7 @@ export default function Home() {
           <div className="flex items-center justify-between lg:block">
             <button
               type="button"
-              onClick={() => scrollToId("top")}
+              onClick={() => setLocation("/")}
               className="group flex items-center gap-3 text-left"
               aria-label="Return to the top of Ontario Research Hub"
             >
@@ -337,8 +326,8 @@ export default function Home() {
           </div>
         </aside>
 
-        <main className="min-w-0 flex-1" id="top">
-          <section className="hero-signal relative overflow-hidden border-b border-[#d7d0c4] bg-[#dce9e5]">
+        <main className="flex min-h-screen min-w-0 flex-1 flex-col" id="top">
+          {activeSection === "home" && <section className="hero-signal relative overflow-hidden border-b border-[#d7d0c4] bg-[#dce9e5]">
             <img
               src={visualAssets.hero}
               alt="Editorial research desk with Ontario map materials and magnifying lens"
@@ -367,7 +356,7 @@ export default function Home() {
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                   <button
                     type="button"
-                    onClick={() => scrollToId("workbench")}
+                    onClick={() => navigateToSection("workbench")}
                     className="group inline-flex items-center justify-center gap-3 bg-[#0f5974] px-5 py-3.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#104b62] active:scale-[0.98]"
                   >
                     Open the workbench
@@ -375,7 +364,7 @@ export default function Home() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => scrollToId("sources")}
+                    onClick={() => navigateToSection("sources")}
                     className="inline-flex items-center justify-center gap-2 border-b border-[#315a5d] pb-1 text-sm font-semibold text-[#244f53] transition-colors hover:border-[#0f5974] hover:text-[#0f5974]"
                   >
                     Browse verified sources <ArrowDownRight className="h-4 w-4" />
@@ -391,9 +380,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section>}
 
-          <section id="workbench" className="scroll-mt-6 bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
+          {activeSection === "workbench" && <section id="workbench" className="bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_300px]">
               <div>
                 <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#cfc7b8] pb-5">
@@ -517,11 +506,11 @@ export default function Home() {
                 </div>
               </aside>
             </div>
-          </section>
+          </section>}
 
-          <EvidenceTools />
+          {activeSection === "evidence-tools" && <EvidenceTools />}
 
-          <section id="sources" className="scroll-mt-6 border-y border-[#b6c7c1] bg-[#17393f] px-6 py-14 text-[#edf1e7] sm:px-10 xl:px-16 xl:py-20">
+          {activeSection === "sources" && <section id="sources" className="border-y border-[#b6c7c1] bg-[#17393f] px-6 py-14 text-[#edf1e7] sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 xl:grid-cols-[0.78fr_1.22fr]">
               <div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b3d6d0]">03 · Source ledger</p>
@@ -565,11 +554,11 @@ export default function Home() {
                 )}
               </div>
             </div>
-          </section>
+          </section>}
 
-          <SourceSelfCheck />
+          {activeSection === "source-status" && <SourceSelfCheck />}
 
-          <section id="responsible-use" className="scroll-mt-6 bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
+          {activeSection === "responsible-use" && <section id="responsible-use" className="bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="relative min-h-[370px] overflow-hidden border border-[#d2cabd] bg-[#ebe6da]">
                 <img src={visualAssets.sourceMap} alt="Archival map materials and source-stamp tokens" className="absolute inset-0 h-full w-full object-cover" />
@@ -588,9 +577,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section>}
 
-          <section id="registry-guide" className="scroll-mt-6 border-y border-[#a9c4bd] bg-[#d7e6df] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
+          {activeSection === "registry-guide" && <section id="registry-guide" className="border-y border-[#a9c4bd] bg-[#d7e6df] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-10 xl:grid-cols-[0.72fr_1.28fr]">
               <div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">05 · Registry & land</p>
@@ -650,15 +639,15 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section>}
 
-          <PersonalDashboard />
+          {activeSection === "dashboard" && <PersonalDashboard />}
 
-          <CitationLog />
+          {activeSection === "citation-log" && <CitationLog />}
 
-          <ResearchAssistant isAuthenticated={isAuthenticated} displayName={user?.name} onAccountEntry={handleAccountEntry} />
+          {activeSection === "ai-guide" && <ResearchAssistant isAuthenticated={isAuthenticated} displayName={user?.name} onAccountEntry={handleAccountEntry} />}
 
-          <section id="support" className="scroll-mt-6 bg-[#cbdcd4] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
+          {activeSection === "support" && <section id="support" className="bg-[#cbdcd4] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 border border-[#97b8b0] bg-[#eaf0e8] p-6 shadow-[9px_9px_0_rgba(15,89,116,0.16)] lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
               <div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">08 · Support desk</p>
@@ -672,9 +661,9 @@ export default function Home() {
                 {!isPayPalConfigured && <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.1em] text-[#8e4a3f]">Setup required: add hosted payment URL</p>}
               </div>
             </div>
-          </section>
+          </section>}
 
-          <footer className="border-t border-[#cfc7b8] bg-[#eee8da] px-6 py-7 sm:px-10 xl:px-16">
+          <footer className="mt-auto border-t border-[#cfc7b8] bg-[#eee8da] px-6 py-7 sm:px-10 xl:px-16">
             <div className="flex flex-col justify-between gap-5 text-xs leading-5 text-[#64706c] md:flex-row md:items-center">
               <p>Ontario Research Hub is a front-end source directory. It does not provide legal advice, investigative services, or identity verification.</p>
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#0f5974]">No identifier storage · outbound sources only</p>
