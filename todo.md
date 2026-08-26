@@ -80,3 +80,6 @@
 - [x] Add an accessible visible scroll bar to the shared desktop and mobile navigation so the final menu items remain reachable.
 - [x] Validate menu scrolling at desktop/mobile heights, run checks, publish, and push the navigation fix to `nathancormier95-ai/Ontario-osint`.
 
+- [x] Add a conditional “Scroll for more” cue to desktop and mobile navigation when menu items are clipped.
+- [x] Validate the cue at short and full menu heights, publish, and push the navigation-cue fix to `nathancormier95-ai/Ontario-osint`.
+

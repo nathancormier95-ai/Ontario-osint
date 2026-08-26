@@ -2,7 +2,7 @@
  * Civic Field Notes style reminder: an asymmetric archive desk with warm paper surfaces,
  * evidence-first source stamps, calm accountability, and Ontario Lake teal as the action signal.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDownRight,
   BadgeCheck,
@@ -121,6 +121,10 @@ export default function Home() {
   const [resourceFilter, setResourceFilter] = useState("All");
   const [municipalityFilter, setMunicipalityFilter] = useState("All municipalities");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [desktopNavCanScroll, setDesktopNavCanScroll] = useState(false);
+  const [mobileNavCanScroll, setMobileNavCanScroll] = useState(false);
+  const desktopNavRef = useRef<HTMLElement | null>(null);
+  const mobileNavRef = useRef<HTMLElement | null>(null);
 
   const activeSection = sectionNav.find((section) => section.path === location)?.id ?? "home";
 
@@ -144,6 +148,31 @@ export default function Home() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [location]);
+
+  useEffect(() => {
+    const updateCue = (element: HTMLElement | null, setCanScroll: (value: boolean) => void) => {
+      if (!element) {
+        setCanScroll(false);
+        return;
+      }
+      setCanScroll(element.scrollHeight - element.clientHeight > 6 && element.scrollTop < element.scrollHeight - element.clientHeight - 6);
+    };
+    const updateDesktopCue = () => updateCue(desktopNavRef.current, setDesktopNavCanScroll);
+    const updateMobileCue = () => updateCue(mobileNavRef.current, setMobileNavCanScroll);
+    updateDesktopCue();
+    updateMobileCue();
+    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(() => {
+      updateDesktopCue();
+      updateMobileCue();
+    });
+    if (desktopNavRef.current) observer?.observe(desktopNavRef.current);
+    if (mobileNavRef.current) observer?.observe(mobileNavRef.current);
+    window.addEventListener("resize", updateDesktopCue);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", updateDesktopCue);
+    };
+  }, [location, mobileNavOpen]);
 
   function requireConsent() {
     if (consent) return true;
@@ -249,7 +278,7 @@ export default function Home() {
                       </div>
                     </div>
                   </SheetHeader>
-                  <nav className="research-nav-scroll flex min-h-0 flex-1 flex-col gap-2 overflow-y-scroll p-5 pr-3" aria-label="Mobile navigation">
+                  <nav ref={mobileNavRef} onScroll={() => { const element = mobileNavRef.current; setMobileNavCanScroll(Boolean(element && element.scrollHeight - element.clientHeight > 6 && element.scrollTop < element.scrollHeight - element.clientHeight - 6)); }} className="research-nav-scroll flex min-h-0 flex-1 flex-col gap-2 overflow-y-scroll p-5 pr-3" aria-label="Mobile navigation">
                     {sectionNav.map(({ number, label, id, detail }) => {
                       const isCurrent = activeSection === id;
                       return (
@@ -261,6 +290,7 @@ export default function Home() {
                       );
                     })}
                   </nav>
+                  {mobileNavCanScroll && <div className="flex items-center gap-2 border-t border-[#4e8080] px-5 py-3 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#d5c86d]" aria-live="polite"><ChevronRight className="h-3.5 w-3.5 rotate-90" /> Scroll for more</div>}
                   <div className="mt-auto border-t border-[#4e8080] p-5">
                     <div className="mb-4 border border-[#3e7274] bg-[#0d2d31]/80 p-4">
                       {accountLoading ? <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#a9cbc6]">Checking workspace…</p> : isAuthenticated ? <><div className="flex items-center gap-2"><UserRound className="h-4 w-4 text-[#d5c86d]" /><p className="text-sm font-semibold text-white">{user?.name || "Signed-in researcher"}</p></div><button type="button" onClick={handleLogout} className="mt-3 flex w-full items-center justify-between border border-[#85afa9] px-3 py-2 text-xs font-semibold text-[#d7e4dc] hover:bg-[#1c4a50]"><span>Sign out</span><LogOut className="h-3.5 w-3.5" /></button></> : <><p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#a9cbc6]">Optional workspace</p><p className="mt-2 text-xs leading-5 text-[#d7e4dc]">Sign in to use the research guide. The citation log stays available without an account.</p><div className="mt-3 grid grid-cols-2 gap-2"><button type="button" onClick={handleAccountEntry} className="border border-[#d5c86d] bg-[#d5c86d] px-2 py-2 text-xs font-semibold text-[#14393d]">Create account</button><button type="button" onClick={handleAccountEntry} className="border border-[#85afa9] px-2 py-2 text-xs font-semibold text-[#d7e4dc]">Sign in</button></div></>}
@@ -280,7 +310,7 @@ export default function Home() {
               <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#b4d9d4]">Field guide · Ontario</p>
             </div>
             <div className="mt-4 h-px w-full bg-[#4e8080]" />
-            <nav className="research-nav-scroll mt-5 min-h-0 flex-1 space-y-2 overflow-y-scroll pr-2" aria-label="Main navigation">
+            <nav ref={desktopNavRef} onScroll={() => { const element = desktopNavRef.current; setDesktopNavCanScroll(Boolean(element && element.scrollHeight - element.clientHeight > 6 && element.scrollTop < element.scrollHeight - element.clientHeight - 6)); }} className="research-nav-scroll mt-5 min-h-0 flex-1 space-y-2 overflow-y-scroll pr-2" aria-label="Main navigation">
               {sectionNav.map(({ number, label, id, detail }) => {
                 const isCurrent = activeSection === id;
                 return (
@@ -301,6 +331,7 @@ export default function Home() {
                 );
               })}
             </nav>
+            {desktopNavCanScroll && <div className="mt-2 flex items-center gap-2 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#d5c86d]" aria-live="polite"><ChevronRight className="h-3.5 w-3.5 rotate-90" /> Scroll for more</div>}
           </div>
 
           <div className="mt-6 hidden border border-[#3e7274] bg-[#0d2d31]/80 p-4 lg:block">
