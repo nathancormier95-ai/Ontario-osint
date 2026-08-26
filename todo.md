@@ -73,3 +73,7 @@
 - [x] Build a dedicated Ontario Data page for provincial statistics, geospatial data, environmental data, and municipal portals.
 - [x] Add the Ontario Data page to desktop and mobile route navigation.
 - [x] Validate the Ontario Data page on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
+- [x] Review the current assistant prompt, UI, and protected procedure against privacy-first research boundaries.
+- [x] Add structured Ontario research planning, source-selection, citation, and data-guidance interactions.
+- [x] Improve assistant response rendering and guided prompt starters without storing chat content.
+- [ ] Add safety-focused tests, validate desktop/mobile behavior, publish, and push the assistant upgrade to `nathancormier95-ai/Ontario-osint`.
