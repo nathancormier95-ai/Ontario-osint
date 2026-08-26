@@ -10,6 +10,7 @@ const workspacePaths = [
   "/workbench",
   "/evidence-tools",
   "/sources",
+  "/ontario-data",
   "/source-status",
   "/responsible-use",
   "/registry-guide",

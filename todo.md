@@ -69,3 +69,7 @@
 - [x] Extract the shared desktop sidebar and mobile navigation into a persistent application shell with active route states.
 - [x] Move each existing section into its own responsive page without changing privacy, consent, or account behavior.
 - [x] Validate direct navigation and key workflows on desktop/mobile, publish, and push the routed workspace to `nathancormier95-ai/Ontario-osint`.
+- [x] Curate additional official Ontario data sources with scope, access, and privacy notes.
+- [x] Build a dedicated Ontario Data page for provincial statistics, geospatial data, environmental data, and municipal portals.
+- [x] Add the Ontario Data page to desktop and mobile route navigation.
+- [ ] Validate the Ontario Data page on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.

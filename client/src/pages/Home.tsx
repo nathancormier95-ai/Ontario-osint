@@ -34,6 +34,7 @@ import { isPayPalConfigured, siteConfig } from "@/lib/site-config";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CitationLog } from "@/components/CitationLog";
 import { EvidenceTools } from "@/components/EvidenceTools";
+import { OntarioData } from "@/components/OntarioData";
 import { PersonalDashboard } from "@/components/PersonalDashboard";
 import { ResearchAssistant } from "@/components/ResearchAssistant";
 import { SourceSelfCheck } from "@/components/SourceSelfCheck";
@@ -60,6 +61,7 @@ const sectionNav = [
   { number: "01", label: "Workbench", id: "workbench", path: "/workbench", detail: "Guided leads" },
   { number: "02", label: "Evidence tools", id: "evidence-tools", path: "/evidence-tools", detail: "Local & outbound" },
   { number: "03", label: "Source ledger", id: "sources", path: "/sources", detail: `${resources.length} direct sources` },
+  { number: "03B", label: "Ontario data", id: "ontario-data", path: "/ontario-data", detail: "Public datasets" },
   { number: "03A", label: "Source status", id: "source-status", path: "/source-status", detail: "On-demand monitor" },
   { number: "04", label: "Responsible use", id: "responsible-use", path: "/responsible-use", detail: "Method protocol" },
   { number: "05", label: "Registry & land", id: "registry-guide", path: "/registry-guide", detail: "Privacy-first" },
@@ -555,6 +557,8 @@ export default function Home() {
               </div>
             </div>
           </section>}
+
+          {activeSection === "ontario-data" && <OntarioData />}
 
           {activeSection === "source-status" && <SourceSelfCheck />}
 
