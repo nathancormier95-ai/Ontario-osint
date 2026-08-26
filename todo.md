@@ -68,4 +68,4 @@
 - [x] Define a dedicated route for each primary research section and retain a focused home entry point.
 - [x] Extract the shared desktop sidebar and mobile navigation into a persistent application shell with active route states.
 - [x] Move each existing section into its own responsive page without changing privacy, consent, or account behavior.
-- [ ] Validate direct navigation and key workflows on desktop/mobile, publish, and push the routed workspace to `nathancormier95-ai/Ontario-osint`.
+- [x] Validate direct navigation and key workflows on desktop/mobile, publish, and push the routed workspace to `nathancormier95-ai/Ontario-osint`.
