@@ -108,3 +108,26 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 
 @keyframes section-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* Keep every sidebar destination reachable on short screens. */
+.research-nav-scroll {
+  scrollbar-width: auto;
+  scrollbar-color: #8fc4bb #0d3035;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.research-nav-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.research-nav-scroll::-webkit-scrollbar-track {
+  background: #0d3035;
+  border-left: 1px solid rgba(159, 213, 207, 0.24);
+}
+.research-nav-scroll::-webkit-scrollbar-thumb {
+  min-height: 44px;
+  background: #8fc4bb;
+  border: 2px solid #0d3035;
+}
+.research-nav-scroll::-webkit-scrollbar-thumb:hover {
+  background: #d5c86d;
+}

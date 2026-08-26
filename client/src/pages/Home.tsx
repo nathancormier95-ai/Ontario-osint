@@ -249,7 +249,7 @@ export default function Home() {
                       </div>
                     </div>
                   </SheetHeader>
-                  <nav className="flex flex-col gap-2 p-5" aria-label="Mobile navigation">
+                  <nav className="research-nav-scroll flex min-h-0 flex-1 flex-col gap-2 overflow-y-scroll p-5 pr-3" aria-label="Mobile navigation">
                     {sectionNav.map(({ number, label, id, detail }) => {
                       const isCurrent = activeSection === id;
                       return (
@@ -274,13 +274,13 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 hidden lg:block">
+          <div className="mt-8 hidden min-h-0 flex-1 flex-col overflow-hidden lg:flex">
             <div className="flex items-center gap-3">
               <span className="h-2 w-2 bg-[#d5c86d] shadow-[0_0_0_3px_rgba(213,200,109,0.16)]" />
               <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#b4d9d4]">Field guide · Ontario</p>
             </div>
             <div className="mt-4 h-px w-full bg-[#4e8080]" />
-            <nav className="mt-5 space-y-2" aria-label="Main navigation">
+            <nav className="research-nav-scroll mt-5 min-h-0 flex-1 space-y-2 overflow-y-scroll pr-2" aria-label="Main navigation">
               {sectionNav.map(({ number, label, id, detail }) => {
                 const isCurrent = activeSection === id;
                 return (
