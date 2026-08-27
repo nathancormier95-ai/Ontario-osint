@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { ResearchCopilotBubble } from "./components/ResearchCopilotBubble";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 
@@ -11,6 +12,7 @@ const workspacePaths = [
   "/evidence-tools",
   "/research-sandbox",
   "/osint-resources",
+  "/privacy-resources",
   "/sources",
   "/ontario-data",
   "/source-status",
@@ -50,6 +52,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <ResearchCopilotBubble />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

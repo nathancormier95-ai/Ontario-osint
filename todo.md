@@ -93,3 +93,10 @@
 - [x] Review and categorize eligible lawful public-resource links from the supplied Start.me directory.
 - [x] Build a dedicated OSINT Resources page and add it to desktop/mobile navigation.
 - [x] Validate the curated OSINT Resources route, publish, and push it to `nathancormier95-ai/Ontario-osint`.
+
+- [x] Define and document Privacy & Personal Security curation boundaries that exclude evasion, anonymous accounts, credential misuse, tracking, and abuse-enabling services.
+- [x] Audit and categorize eligible defensive resources from the supplied Start.me privacy directory.
+- [x] Build the curated Privacy & Personal Security page and add it to desktop/mobile navigation.
+- [x] Add an accessible site-wide Ontario Research Copilot chat bubble without default chat persistence.
+- [x] Reset the Research Copilot bubble’s in-memory session on close and ignore stale responses from a closed session.
+- [ ] Validate the curated privacy page and chat bubble on desktop/mobile, publish, and push to `nathancormier95-ai/Ontario-osint`.
