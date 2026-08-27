@@ -60,7 +60,7 @@ const socialPlatforms = [
   { label: "Facebook", domain: "facebook.com" },
 ];
 
-const sectionNav = [
+export const sectionNav = [
   { number: "01", label: "Workbench", id: "workbench", path: "/workbench", detail: "Guided leads" },
   { number: "02", label: "Evidence tools", id: "evidence-tools", path: "/evidence-tools", detail: "Local & outbound" },
   { number: "02A", label: "Research sandbox", id: "research-sandbox", path: "/research-sandbox", detail: "Local test plan" },
@@ -75,6 +75,32 @@ const sectionNav = [
   { number: "06A", label: "Dashboard", id: "dashboard", path: "/dashboard", detail: "Account collections" },
   { number: "07", label: "Research guide", id: "ai-guide", path: "/ai-guide", detail: "Account access" },
   { number: "08", label: "Support desk", id: "support", path: "/support", detail: "Hosted checkout" },
+] as const;
+
+type SectionId = (typeof sectionNav)[number]["id"];
+
+export const tableOfContentsMeta: Record<SectionId, { group: "Discover" | "Evidence & practice" | "Ontario sources" | "Workspace"; offer: string; access: string }> = {
+  workbench: { group: "Discover", offer: "Guided public-source name and profile searches, plus a browser-local email-format check.", access: "Public · browser-first" },
+  "evidence-tools": { group: "Evidence & practice", offer: "Browser-local file facts and SHA-256 hashing, public domain references, and a consent-gated VIN specification handoff.", access: "Public · local/outbound" },
+  "research-sandbox": { group: "Evidence & practice", offer: "A local authorization and evidence-handling checklist with official software-testing references.", access: "Public · local plan" },
+  "osint-resources": { group: "Evidence & practice", offer: "A narrowly curated set of reviewed, lawful public-resource references from an audited external directory.", access: "Public · curated links" },
+  "privacy-resources": { group: "Evidence & practice", offer: "Ten defensive privacy, verification, password, storage, and self-review references with clear own-data boundaries.", access: "Public · defensive only" },
+  sources: { group: "Ontario sources", offer: "Ontario public records, legal, regulatory, property, archival, and municipal open-data sources with city and category filters.", access: "Public · outbound sources" },
+  "ontario-data": { group: "Ontario sources", offer: "Official provincial, geospatial, population, climate, health, and municipal open-data starting points.", access: "Public · datasets" },
+  "source-status": { group: "Ontario sources", offer: "A signed-in, on-demand availability check for the platform’s fixed approved-source allowlist.", access: "Account · fixed allowlist" },
+  "responsible-use": { group: "Evidence & practice", offer: "A research-method protocol covering lawful purpose, minimum collection, context, verification, and retention.", access: "Public · method guide" },
+  "registry-guide": { group: "Evidence & practice", offer: "Ontario corporate-registry and land-title research orientation built around entities, parcels, and minimum necessary records.", access: "Public · privacy-first" },
+  "citation-log": { group: "Workspace", offer: "A browser-local citation log with CSV and Markdown export; optional account syncing requires explicit consent.", access: "Public · local by default" },
+  dashboard: { group: "Workspace", offer: "Signed-in research collections for organizing citations you explicitly chose to sync.", access: "Account · opt-in sync" },
+  "ai-guide": { group: "Workspace", offer: "A protected Ontario Research Copilot that returns source-first research briefs, citation cues, and safe next steps.", access: "Account · session-only" },
+  support: { group: "Workspace", offer: "A hosted PayPal checkout handoff for supporting the project without entering payment data on this site.", access: "Public · hosted checkout" },
+};
+
+export const tableOfContentsGroups = [
+  { id: "Discover", index: "A", title: "Start & discover", copy: "Start with a focused public-source question and a method you can explain." },
+  { id: "Evidence & practice", index: "B", title: "Evidence & responsible practice", copy: "Keep research bounded, documented, and aligned to lawful, privacy-conscious use." },
+  { id: "Ontario sources", index: "C", title: "Ontario sources & data", copy: "Move directly to provincial and municipal source pages without building profiles on this site." },
+  { id: "Workspace", index: "D", title: "Workspace & support", copy: "Keep citations local by default, opt into account tools deliberately, and access project support." },
 ] as const;
 
 const categoryBadgeStyles: Record<Resource["category"], string> = {
@@ -418,6 +444,50 @@ export default function Home() {
                   <p className="mt-3 text-xs leading-5 text-[#4b5c57]">Record where information came from and respect each source’s terms, access limits, and publication rules.</p>
                 </div>
               </div>
+            </div>
+          </section>}
+
+          {activeSection === "home" && <section id="contents" aria-labelledby="contents-title" className="relative overflow-hidden bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
+            <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(90deg,rgba(15,89,116,0.07)_1px,transparent_1px),linear-gradient(rgba(15,89,116,0.045)_1px,transparent_1px)] [background-size:28px_28px]" />
+            <div className="relative mx-auto max-w-7xl">
+              <div className="grid gap-8 border-b border-[#b7c8c1] pb-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+                <div>
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">Field guide · full index</p>
+                  <h2 id="contents-title" className="mt-4 max-w-xl font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">Everything the desk offers, in one place.</h2>
+                </div>
+                <div className="border-l-2 border-[#d5c86d] bg-[#eff4ec] px-5 py-4 text-sm leading-6 text-[#4e625d]">
+                  <p><strong className="text-[#214d50]">{sectionNav.length} focused routes.</strong> Use this index to open a purpose-specific page rather than searching through a long workspace. Account labels describe optional protected features; they do not change the browser-local defaults.</p>
+                </div>
+              </div>
+
+              <nav className="mt-10 space-y-12" aria-label="Complete platform table of contents">
+                {tableOfContentsGroups.map((group) => {
+                  const entries = sectionNav.filter((section) => tableOfContentsMeta[section.id].group === group.id);
+                  return <section key={group.id} aria-labelledby={`contents-${group.index}`} className="grid gap-6 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)] lg:gap-10">
+                    <div className="lg:pt-3">
+                      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#176c75]">Index {group.index}</p>
+                      <h3 id={`contents-${group.index}`} className="mt-3 font-display text-3xl leading-none tracking-[-0.045em] text-[#19383d]">{group.title}</h3>
+                      <p className="mt-3 text-sm leading-6 text-[#61716c]">{group.copy}</p>
+                    </div>
+                    <ol className="grid gap-px border border-[#b8cbc3] bg-[#b8cbc3] sm:grid-cols-2">
+                      {entries.map((section) => {
+                        const item = tableOfContentsMeta[section.id];
+                        return <li key={section.id} className="bg-[#fffdf8]">
+                          <button type="button" onClick={() => navigateToSection(section.id)} className="group flex h-full w-full flex-col p-5 text-left transition-colors hover:bg-[#edf5ef] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0f5974]">
+                            <div className="flex items-start justify-between gap-4">
+                              <span className="font-mono text-[10px] font-semibold tracking-[0.14em] text-[#0f5974]">{section.number}</span>
+                              <span className="border border-[#b8cbc3] bg-[#f2f6f0] px-2 py-1 font-mono text-[8px] font-semibold uppercase tracking-[0.12em] text-[#52716c]">{item.access}</span>
+                            </div>
+                            <h4 className="mt-7 font-display text-3xl leading-none tracking-[-0.045em] text-[#19383d]">{section.label}</h4>
+                            <p className="mt-3 text-sm leading-6 text-[#596c67]">{item.offer}</p>
+                            <span className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#0f5974] underline decoration-[#8dacaa] underline-offset-4 transition-colors group-hover:text-[#123e50]">Open {section.label} <ArrowDownRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" /></span>
+                          </button>
+                        </li>;
+                      })}
+                    </ol>
+                  </section>;
+                })}
+              </nav>
             </div>
           </section>}
 

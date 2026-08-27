@@ -102,3 +102,7 @@
 - [x] Validate the curated privacy page and chat bubble on desktop/mobile, publish, and push to `nathancormier95-ai/Ontario-osint`.
 - [x] Save and verify the final managed release after the privacy-audit and copilot-session corrections.
 - [x] Open and verify the Research Copilot popup at a phone-sized viewport, including close behavior and unobstructed content.
+
+- [x] Inventory every public, account-backed, safety, data, and support route for the main-page table of contents.
+- [x] Build a responsive, accessible, route-linked table of contents on the home page.
+- [ ] Validate home-page table-of-contents completeness on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
