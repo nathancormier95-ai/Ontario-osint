@@ -21,9 +21,9 @@ import {
   MailCheck,
   MapPinned,
   Menu,
+  Printer,
   Search,
   ShieldCheck,
-  Sparkles,
   UserRound,
   X,
 } from "lucide-react";
@@ -39,8 +39,6 @@ import { OsintResources } from "@/components/OsintResources";
 import { PrivacyResources } from "@/components/PrivacyResources";
 import { PersonalDashboard } from "@/components/PersonalDashboard";
 import { ResearchAssistant } from "@/components/ResearchAssistant";
-import { ResearchSandbox } from "@/components/ResearchSandbox";
-import { SourceSelfCheck } from "@/components/SourceSelfCheck";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { useLocation } from "wouter";
@@ -63,18 +61,15 @@ const socialPlatforms = [
 export const sectionNav = [
   { number: "01", label: "Workbench", id: "workbench", path: "/workbench", detail: "Guided leads" },
   { number: "02", label: "Evidence tools", id: "evidence-tools", path: "/evidence-tools", detail: "Local & outbound" },
-  { number: "02A", label: "Research sandbox", id: "research-sandbox", path: "/research-sandbox", detail: "Local test plan" },
-  { number: "02B", label: "OSINT resources", id: "osint-resources", path: "/osint-resources", detail: "Curated links" },
-  { number: "02C", label: "Privacy & security", id: "privacy-resources", path: "/privacy-resources", detail: "Defensive only" },
+  { number: "02A", label: "OSINT resources", id: "osint-resources", path: "/osint-resources", detail: "Curated links" },
+  { number: "02B", label: "Privacy & security", id: "privacy-resources", path: "/privacy-resources", detail: "Defensive only" },
   { number: "03", label: "Source ledger", id: "sources", path: "/sources", detail: `${resources.length} direct sources` },
-  { number: "03B", label: "Ontario data", id: "ontario-data", path: "/ontario-data", detail: "Public datasets" },
-  { number: "03A", label: "Source status", id: "source-status", path: "/source-status", detail: "On-demand monitor" },
-  { number: "04", label: "Responsible use", id: "responsible-use", path: "/responsible-use", detail: "Method protocol" },
-  { number: "05", label: "Registry & land", id: "registry-guide", path: "/registry-guide", detail: "Privacy-first" },
-  { number: "06", label: "Citation log", id: "citation-log", path: "/citation-log", detail: "Browser-local" },
-  { number: "06A", label: "Dashboard", id: "dashboard", path: "/dashboard", detail: "Account collections" },
-  { number: "07", label: "Research guide", id: "ai-guide", path: "/ai-guide", detail: "Account access" },
-  { number: "08", label: "Support desk", id: "support", path: "/support", detail: "Hosted checkout" },
+  { number: "03A", label: "Ontario data", id: "ontario-data", path: "/ontario-data", detail: "Public datasets" },
+  { number: "04", label: "Registry & land", id: "registry-guide", path: "/registry-guide", detail: "Privacy-first" },
+  { number: "05", label: "Citation log", id: "citation-log", path: "/citation-log", detail: "Browser-local" },
+  { number: "05A", label: "Dashboard", id: "dashboard", path: "/dashboard", detail: "Account collections" },
+  { number: "06", label: "Research guide", id: "ai-guide", path: "/ai-guide", detail: "Account access" },
+  { number: "07", label: "Support desk", id: "support", path: "/support", detail: "Hosted checkout" },
 ] as const;
 
 type SectionId = (typeof sectionNav)[number]["id"];
@@ -82,13 +77,10 @@ type SectionId = (typeof sectionNav)[number]["id"];
 export const tableOfContentsMeta: Record<SectionId, { group: "Discover" | "Evidence & practice" | "Ontario sources" | "Workspace"; offer: string; access: string }> = {
   workbench: { group: "Discover", offer: "Guided public-source name and profile searches, plus a browser-local email-format check.", access: "Public · browser-first" },
   "evidence-tools": { group: "Evidence & practice", offer: "Browser-local file facts and SHA-256 hashing, public domain references, and a consent-gated VIN specification handoff.", access: "Public · local/outbound" },
-  "research-sandbox": { group: "Evidence & practice", offer: "A local authorization and evidence-handling checklist with official software-testing references.", access: "Public · local plan" },
   "osint-resources": { group: "Evidence & practice", offer: "A narrowly curated set of reviewed, lawful public-resource references from an audited external directory.", access: "Public · curated links" },
   "privacy-resources": { group: "Evidence & practice", offer: "Ten defensive privacy, verification, password, storage, and self-review references with clear own-data boundaries.", access: "Public · defensive only" },
   sources: { group: "Ontario sources", offer: "Ontario public records, legal, regulatory, property, archival, and municipal open-data sources with city and category filters.", access: "Public · outbound sources" },
   "ontario-data": { group: "Ontario sources", offer: "Official provincial, geospatial, population, climate, health, and municipal open-data starting points.", access: "Public · datasets" },
-  "source-status": { group: "Ontario sources", offer: "A signed-in, on-demand availability check for the platform’s fixed approved-source allowlist.", access: "Account · fixed allowlist" },
-  "responsible-use": { group: "Evidence & practice", offer: "A research-method protocol covering lawful purpose, minimum collection, context, verification, and retention.", access: "Public · method guide" },
   "registry-guide": { group: "Evidence & practice", offer: "Ontario corporate-registry and land-title research orientation built around entities, parcels, and minimum necessary records.", access: "Public · privacy-first" },
   "citation-log": { group: "Workspace", offer: "A browser-local citation log with CSV and Markdown export; optional account syncing requires explicit consent.", access: "Public · local by default" },
   dashboard: { group: "Workspace", offer: "Signed-in research collections for organizing citations you explicitly chose to sync.", access: "Account · opt-in sync" },
@@ -98,10 +90,18 @@ export const tableOfContentsMeta: Record<SectionId, { group: "Discover" | "Evide
 
 export const tableOfContentsGroups = [
   { id: "Discover", index: "A", title: "Start & discover", copy: "Start with a focused public-source question and a method you can explain." },
-  { id: "Evidence & practice", index: "B", title: "Evidence & responsible practice", copy: "Keep research bounded, documented, and aligned to lawful, privacy-conscious use." },
+  { id: "Evidence & practice", index: "B", title: "Evidence & research practice", copy: "Keep research bounded, documented, and aligned to lawful, privacy-conscious use." },
   { id: "Ontario sources", index: "C", title: "Ontario sources & data", copy: "Move directly to provincial and municipal source pages without building profiles on this site." },
   { id: "Workspace", index: "D", title: "Workspace & support", copy: "Keep citations local by default, opt into account tools deliberately, and access project support." },
 ] as const;
+
+export function openPlatformOverviewPrint(printHandler?: () => void) {
+  if (printHandler) {
+    printHandler();
+    return;
+  }
+  if (typeof window !== "undefined") window.print();
+}
 
 const categoryBadgeStyles: Record<Resource["category"], string> = {
   "Public records": "bg-[#3a8b83] text-[#f3fff9]",
@@ -208,7 +208,7 @@ export default function Home() {
 
   function requireConsent() {
     if (consent) return true;
-    toast.error("Confirm the responsible-use statement before opening an external search.");
+    toast.error("Confirm the lawful-use statement before opening an external search.");
     return false;
   }
 
@@ -263,6 +263,10 @@ export default function Home() {
     } catch {
       toast.error("Sign-out could not be completed. Please try again.");
     }
+  }
+
+  function handlePrintOverview() {
+    openPlatformOverviewPrint();
   }
 
   return (
@@ -447,17 +451,30 @@ export default function Home() {
             </div>
           </section>}
 
-          {activeSection === "home" && <section id="contents" aria-labelledby="contents-title" className="relative overflow-hidden bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
+          {activeSection === "home" && <section id="contents" aria-labelledby="contents-title" className="print-overview relative overflow-hidden bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(90deg,rgba(15,89,116,0.07)_1px,transparent_1px),linear-gradient(rgba(15,89,116,0.045)_1px,transparent_1px)] [background-size:28px_28px]" />
             <div className="relative mx-auto max-w-7xl">
+              <div className="print-overview-masthead" aria-hidden="true">
+                <p>Ontario Research Hub</p>
+                <span>Platform overview · public route guide</span>
+              </div>
               <div className="grid gap-8 border-b border-[#b7c8c1] pb-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
                 <div>
                   <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">Field guide · full index</p>
                   <h2 id="contents-title" className="mt-4 max-w-xl font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">Everything the desk offers, in one place.</h2>
                 </div>
-                <div className="border-l-2 border-[#d5c86d] bg-[#eff4ec] px-5 py-4 text-sm leading-6 text-[#4e625d]">
+                <div className="border-l-2 border-[#d5c86d] bg-[#eff4ec] px-5 py-4 text-sm leading-6 text-[#4e625d] print:hidden">
                   <p><strong className="text-[#214d50]">{sectionNav.length} focused routes.</strong> Use this index to open a purpose-specific page rather than searching through a long workspace. Account labels describe optional protected features; they do not change the browser-local defaults.</p>
                 </div>
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3 border-b border-dashed border-[#b7c8c1] pb-6 sm:flex-row sm:items-center sm:justify-between print:hidden">
+                <p className="max-w-2xl text-sm leading-6 text-[#576b66]">Save a clean route guide for your records. The overview lists public platform offerings only—it does not include account, citation-log, collection, or chat content.</p>
+                <button type="button" onClick={handlePrintOverview} className="primary-action w-full justify-center sm:w-auto" aria-describedby="print-overview-note">
+                  <Printer className="h-4 w-4" />
+                  Print / Save PDF overview
+                </button>
+                <span id="print-overview-note" className="sr-only">Opens your browser print dialog, where you can select Save as PDF.</span>
               </div>
 
               <nav className="mt-10 space-y-12" aria-label="Complete platform table of contents">
@@ -619,8 +636,6 @@ export default function Home() {
 
           {activeSection === "evidence-tools" && <EvidenceTools />}
 
-          {activeSection === "research-sandbox" && <ResearchSandbox />}
-
           {activeSection === "osint-resources" && <OsintResources />}
 
           {activeSection === "privacy-resources" && <PrivacyResources />}
@@ -673,33 +688,10 @@ export default function Home() {
 
           {activeSection === "ontario-data" && <OntarioData />}
 
-          {activeSection === "source-status" && <SourceSelfCheck />}
-
-          {activeSection === "responsible-use" && <section id="responsible-use" className="bg-[#f8f5ee] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
-            <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="relative min-h-[370px] overflow-hidden border border-[#d2cabd] bg-[#ebe6da]">
-                <img src={visualAssets.sourceMap} alt="Archival map materials and source-stamp tokens" className="absolute inset-0 h-full w-full object-cover" />
-                <div className="absolute bottom-0 left-0 max-w-sm bg-[#f6f2e9]/95 p-5 backdrop-blur-sm"><p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#0f5974]">Method matters</p><p className="mt-2 text-sm leading-6 text-[#3c514f]">Public availability does not erase privacy, context, copyright, or publication limits.</p></div>
-              </div>
-              <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">04 · Responsible use</p>
-                <h2 className="mt-4 font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19363b]">Build a trail—not a target file.</h2>
-                <p className="mt-6 max-w-lg text-base leading-7 text-[#52625e]">Ontario Research Hub is an orientation tool. It helps people find source pages and prepare transparent searches, but it does not identify people, scrape accounts, access private data, or establish facts.</p>
-                <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                  {[
-                    { icon: Landmark, title: "Use stated sources", body: "Prefer the issuing institution." },
-                    { icon: CircleAlert, title: "Respect limits", body: "Do not copy, share, or reuse restricted results." },
-                    { icon: Sparkles, title: "Keep context", body: "Separate leads from verified findings." },
-                  ].map(({ icon: Icon, title, body }) => <div key={title} className="border-t-2 border-[#0f5974] pt-4"><Icon className="h-4 w-4 text-[#0f5974]" /><h3 className="mt-4 text-sm font-semibold text-[#244a4d]">{title}</h3><p className="mt-1 text-xs leading-5 text-[#65736e]">{body}</p></div>)}
-                </div>
-              </div>
-            </div>
-          </section>}
-
           {activeSection === "registry-guide" && <section id="registry-guide" className="border-y border-[#a9c4bd] bg-[#d7e6df] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-10 xl:grid-cols-[0.72fr_1.28fr]">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">05 · Registry & land</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">04 · Registry & land</p>
                 <h2 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">Research records—not people.</h2>
                 <p className="mt-5 max-w-md text-sm leading-6 text-[#4c615e]">Use corporate and land records to answer a defined entity, property, or transaction question. Keep only what the question requires, preserve the source context, and never turn an isolated record into a personal dossier.</p>
                 <div className="mt-8 border-l-2 border-[#d5c86d] bg-[#edf3eb]/80 px-5 py-4">
@@ -767,7 +759,7 @@ export default function Home() {
           {activeSection === "support" && <section id="support" className="bg-[#cbdcd4] px-6 py-14 sm:px-10 xl:px-16 xl:py-20">
             <div className="grid gap-8 border border-[#97b8b0] bg-[#eaf0e8] p-6 shadow-[9px_9px_0_rgba(15,89,116,0.16)] lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">08 · Support desk</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">07 · Support desk</p>
                 <h2 className="mt-3 font-display text-4xl tracking-[-0.05em] text-[#19383e] md:text-5xl">Keep the source ledger open.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-6 text-[#52625f]">This GitHub-hosted front end uses a PayPal hosted checkout link, so payment entry occurs on PayPal rather than on this site. Add your approved hosted button URL, terms, privacy notice, and refund policy before enabling a live payment page.</p>
               </div>

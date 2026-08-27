@@ -15,3 +15,9 @@ At `390×844`, the entry cards collapse to one column while preserving route num
 ## Functional check
 
 The table-of-contents unit test verifies that every menu destination has one metadata record and that each record belongs to a declared purpose group.
+
+## Reduced button-box sitemap and print overview
+
+The index was updated to a retained-offering sitemap after removing the Source Status, Research Sandbox, and Responsible Use pages. It now contains eleven button-style route boxes, each with an index number, access label, purpose description, and direct in-app action. At `1440×1000` the boxes retain their grouped two-column ledger layout; at `390×844` they stack into a single clear route list.
+
+The **Print / Save PDF overview** control appears above the sitemap. It invokes the browser print dialog and uses print-only rules to render the public sitemap with an Ontario Research Hub masthead while suppressing the application rail, chat bubble, footer, and all account, citation, collection, and conversation content.

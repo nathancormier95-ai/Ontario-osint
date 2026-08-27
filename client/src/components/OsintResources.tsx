@@ -59,7 +59,7 @@ export function OsintResources() {
       <div className="relative mx-auto max-w-6xl">
         <div className="grid gap-10 xl:grid-cols-[0.78fr_1.22fr]">
           <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">02B · OSINT resources</p>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f5974]">02A · OSINT resources</p>
             <h1 className="mt-4 max-w-md font-display text-5xl leading-[0.9] tracking-[-0.055em] text-[#19383d]">A sourced index, not an open-ended tool cabinet.</h1>
             <p className="mt-5 max-w-md text-sm leading-6 text-[#536561]">This page reviewed 170 displayed links from the supplied directory and retained only the three that fit the Hub’s narrow lawful, privacy-respecting research model. Every external link opens in a new tab under your control.</p>
             <div className="mt-8 border-l-4 border-[#d9765e] bg-[#fff2ec] p-5 text-sm leading-6 text-[#74463b]"><div className="flex items-center gap-2 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#a95545]"><FileWarning className="h-4 w-4" /> Curated exclusion boundary</div><p className="mt-3">The supplied directory also contained phone or device intelligence, geolocation, logging, password recovery, financial validation, scanning, exploitation, dark-web, and evasion links. Those categories are intentionally not reproduced here.</p></div>

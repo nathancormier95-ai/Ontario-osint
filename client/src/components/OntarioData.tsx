@@ -79,7 +79,7 @@ export function OntarioData() {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-9 xl:grid-cols-[0.76fr_1.24fr]">
           <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#176c75]">03B · Ontario data</p>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#176c75]">03A · Ontario data</p>
             <h1 className="mt-4 font-display text-5xl leading-[0.88] tracking-[-0.055em] text-[#173c43] md:text-6xl">Data for the province—used with context.</h1>
             <p className="mt-6 max-w-md text-sm leading-6 text-[#506761]">Start with official, aggregate, and documented sources for Ontario data. This page opens public portals in a new tab; it does not search, store, combine, or profile data for you.</p>
             <div className="mt-8 border-l-4 border-[#d9765e] bg-[#fff2ec] p-5 text-sm leading-6 text-[#74463b]">

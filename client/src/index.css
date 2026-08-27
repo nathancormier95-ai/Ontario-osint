@@ -131,3 +131,48 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 .research-nav-scroll::-webkit-scrollbar-thumb:hover {
   background: #d5c86d;
 }
+
+/* Save a concise platform guide without printing the application shell or user content. */
+.print-overview-masthead { display: none; }
+
+@media print {
+  @page { size: letter; margin: 0.5in; }
+  body { background: #fff !important; }
+  body * { visibility: hidden; }
+  .paper-grain, aside, footer, [data-sonner-toaster] { display: none !important; }
+  .print-overview, .print-overview * { visibility: visible; }
+  .print-overview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: visible !important;
+    background: #fff !important;
+    color: #152327 !important;
+    padding: 0 !important;
+  }
+  .print-overview-masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 2px solid #0f5974;
+    padding-bottom: 0.25in;
+    color: #0f5974;
+    font-family: var(--font-mono);
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .print-overview-masthead span { color: #506662; font-size: 8pt; }
+  .print-overview nav { margin-top: 0.25in !important; space-y: 0 !important; }
+  .print-overview nav > section { display: block !important; break-inside: avoid; margin-top: 0.18in; }
+  .print-overview nav > section > div:first-child { border-bottom: 1px solid #9bb5ae; padding: 0.08in 0; }
+  .print-overview nav ol { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 1px; break-inside: avoid; }
+  .print-overview nav li { break-inside: avoid; }
+  .print-overview nav button { min-height: 1.35in; padding: 0.14in !important; background: #fff !important; }
+  .print-overview nav h4 { margin-top: 0.11in !important; font-size: 17pt !important; }
+  .print-overview nav p { margin-top: 0.07in !important; font-size: 8.5pt !important; line-height: 1.35 !important; }
+  .print-overview nav button > span:last-child { display: none !important; }
+}

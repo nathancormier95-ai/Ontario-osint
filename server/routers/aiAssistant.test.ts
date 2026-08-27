@@ -35,5 +35,6 @@ describe("assistant guide response contract", () => {
 
   it("rejects unsupported in-app routes", () => {
     expect(() => assistantGuideSchema.parse({ ...guide, route: "person-lookup" })).toThrow();
+    expect(() => assistantGuideSchema.parse({ ...guide, route: "responsible-use" })).toThrow();
   });
 });

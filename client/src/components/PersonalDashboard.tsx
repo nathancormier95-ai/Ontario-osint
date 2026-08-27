@@ -79,7 +79,7 @@ export function PersonalDashboard() {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr]">
           <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#176c75]">06A · Personal dashboard</p>
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#176c75]">05A · Personal dashboard</p>
             <h2 className="mt-4 font-display text-5xl leading-[0.88] tracking-[-0.055em] text-[#1b3d45]">Keep a research shelf, not a dossier.</h2>
             <p className="mt-5 max-w-md text-sm leading-6 text-[#536762]">Organize account-backed citations into named collections. Browser-local citations remain yours and are never copied here unless you explicitly enable and run citation sync.</p>
             <div className="mt-7 border-l-4 border-[#c97760] bg-[#fff1eb] p-4 text-xs leading-5 text-[#74463b]"><strong className="font-semibold">Your control.</strong> Collections contain citation references only. You can delete a collection without deleting its citations, or disconnect citation sync to delete all account-backed collections and synced citations.</div>

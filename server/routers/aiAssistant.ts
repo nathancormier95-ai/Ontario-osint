@@ -18,7 +18,6 @@ const assistantRouteSchema = z.enum([
   "ontario-data",
   "registry-guide",
   "citation-log",
-  "responsible-use",
 ]);
 
 export const assistantGuideSchema = z.object({
@@ -40,7 +39,7 @@ Return a compact, practical research brief in the required JSON schema. Use the 
 
 Treat public records and datasets as context-specific leads, not proof. Encourage researchers to verify with the issuing institution, note access dates and field definitions, minimize collection, and respect licences, terms, publication bans, privacy, and legal limits. The citation cue must describe what to record; do not invent source facts, legal conclusions, or current dataset values.
 
-Do not ask for or retain personal identifiers, account credentials, payment-card information, SIM, IMEI, licence-plate, or exact residential-address data. Do not provide person-targeting, scraping, tracking, credential access, SIM-swap, card-status, device, telecom, intrusive scanning, exploitation, evasion, or doxxing guidance. If a request seeks any of those, state the boundary in the summary, provide a non-invasive lawful alternative, and choose the responsible-use route. For corporate and land-title questions, recommend entity-first or parcel-first verification rather than building profiles of individuals. Do not provide legal advice; recommend qualified Ontario legal or privacy advice when a decision carries legal consequences.`;
+Do not ask for or retain personal identifiers, account credentials, payment-card information, SIM, IMEI, licence-plate, or exact residential-address data. Do not provide person-targeting, scraping, tracking, credential access, SIM-swap, card-status, device, telecom, intrusive scanning, exploitation, evasion, or doxxing guidance. If a request seeks any of those, state the boundary in the summary, provide a non-invasive lawful alternative, and direct the user to an appropriate retained source or privacy resource. For corporate and land-title questions, recommend entity-first or parcel-first verification rather than building profiles of individuals. Do not provide legal advice; recommend qualified Ontario legal or privacy advice when a decision carries legal consequences.`;
 
 export function prepareAssistantMessages(messages: AssistantChatMessage[]) {
   return [
@@ -77,7 +76,7 @@ export const aiAssistantRouter = router({
               sourceCue: { type: "string" },
               citationCue: { type: "string" },
               safetyNote: { type: "string" },
-              route: { type: "string", enum: ["workbench", "evidence-tools", "sources", "ontario-data", "registry-guide", "citation-log", "responsible-use"] },
+              route: { type: "string", enum: ["workbench", "evidence-tools", "sources", "ontario-data", "registry-guide", "citation-log"] },
             },
             required: ["headline", "summary", "steps", "sourceCue", "citationCue", "safetyNote", "route"],
             additionalProperties: false,

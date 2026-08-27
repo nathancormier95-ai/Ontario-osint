@@ -7,16 +7,13 @@ import { ResearchCopilotBubble } from "./components/ResearchCopilotBubble";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 
-const workspacePaths = [
+export const workspacePaths = [
   "/workbench",
   "/evidence-tools",
-  "/research-sandbox",
   "/osint-resources",
   "/privacy-resources",
   "/sources",
   "/ontario-data",
-  "/source-status",
-  "/responsible-use",
   "/registry-guide",
   "/citation-log",
   "/dashboard",
