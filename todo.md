@@ -99,6 +99,6 @@
 - [x] Build the curated Privacy & Personal Security page and add it to desktop/mobile navigation.
 - [x] Add an accessible site-wide Ontario Research Copilot chat bubble without default chat persistence.
 - [x] Reset the Research Copilot bubble’s in-memory session on close and ignore stale responses from a closed session.
-- [ ] Validate the curated privacy page and chat bubble on desktop/mobile, publish, and push to `nathancormier95-ai/Ontario-osint`.
-- [ ] Save and verify the final managed release after the privacy-audit and copilot-session corrections.
+- [x] Validate the curated privacy page and chat bubble on desktop/mobile, publish, and push to `nathancormier95-ai/Ontario-osint`.
+- [x] Save and verify the final managed release after the privacy-audit and copilot-session corrections.
 - [x] Open and verify the Research Copilot popup at a phone-sized viewport, including close behavior and unobstructed content.
