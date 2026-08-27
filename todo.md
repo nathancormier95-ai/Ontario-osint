@@ -117,3 +117,7 @@
 
 - [x] Convert the home-page platform index into a button-box sitemap covering every retained site offering.
 - [ ] Validate sitemap routing and the printable overview on desktop/mobile, publish, and push the final navigation update to `nathancormier95-ai/Ontario-osint`.
+- [x] Trigger and inspect the print-only platform overview so no application, account, citation, collection, or chat content is included.
+- [x] Verify representative button-box sitemap navigation and safe fallback behavior for all three removed routes.
+- [x] Activate representative sitemap buttons on desktop/mobile and confirm the expected retained pages open.
+- [x] Directly inspect the visible 404 state for `/research-sandbox`, `/source-status`, and `/responsible-use`.

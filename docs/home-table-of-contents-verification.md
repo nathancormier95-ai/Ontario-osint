@@ -21,3 +21,9 @@ The table-of-contents unit test verifies that every menu destination has one met
 The index was updated to a retained-offering sitemap after removing the Source Status, Research Sandbox, and Responsible Use pages. It now contains eleven button-style route boxes, each with an index number, access label, purpose description, and direct in-app action. At `1440×1000` the boxes retain their grouped two-column ledger layout; at `390×844` they stack into a single clear route list.
 
 The **Print / Save PDF overview** control appears above the sitemap. It invokes the browser print dialog and uses print-only rules to render the public sitemap with an Ontario Research Hub masthead while suppressing the application rail, chat bubble, footer, and all account, citation, collection, and conversation content.
+
+## Direct print and route validation
+
+The home route was rendered through Chromium’s browser print pipeline. The generated two-page PDF contained the Ontario Research Hub print masthead and the eleven retained sitemap entries. A text extraction check found no application-rail, account, citation-entry, collection, copilot, or retired-route markers.
+
+Representative sitemap actions were directly activated in a Chromium session. At desktop size, **Open Workbench**, **Open Ontario data**, and **Open Privacy & security** navigated to `/workbench`, `/ontario-data`, and `/privacy-resources`. At phone width, **Open Workbench** and **Open Citation log** navigated to their matching routes. The three retired URLs, `/research-sandbox`, `/source-status`, and `/responsible-use`, each displayed the application’s visible 404 fallback. The normal home page was also reviewed at `390×844`, where the sitemap button boxes stack into a single accessible list and the Print / Save PDF action remains available.
