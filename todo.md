@@ -109,14 +109,15 @@
 
 - [x] Define the printable platform-overview boundary so it includes only public route information and excludes account, citation, and research data.
 - [x] Add a Print / Save PDF Overview action to the home-page table of contents with a clean print-only layout.
-- [ ] Validate the print action and print layout on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
+- [x] Validate the print action and print layout on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
 
 - [x] Remove the Source Status, Research Sandbox, and Responsible Use pages, routes, and their no-longer-used modules/tests.
 - [x] Remove the three destinations from desktop/mobile navigation and the home-page table of contents, including printable route metadata.
-- [ ] Validate the reduced route map and print overview on desktop/mobile, publish, and push the removal update to `nathancormier95-ai/Ontario-osint`.
+- [x] Validate the reduced route map and print overview on desktop/mobile, publish, and push the removal update to `nathancormier95-ai/Ontario-osint`.
 
 - [x] Convert the home-page platform index into a button-box sitemap covering every retained site offering.
-- [ ] Validate sitemap routing and the printable overview on desktop/mobile, publish, and push the final navigation update to `nathancormier95-ai/Ontario-osint`.
+- [x] Validate sitemap routing and the printable overview on desktop/mobile, publish, and push the final navigation update to `nathancormier95-ai/Ontario-osint`.
+- [x] Generate and inspect the public platform overview PDF at a phone-sized viewport.
 - [x] Trigger and inspect the print-only platform overview so no application, account, citation, collection, or chat content is included.
 - [x] Verify representative button-box sitemap navigation and safe fallback behavior for all three removed routes.
 - [x] Activate representative sitemap buttons on desktop/mobile and confirm the expected retained pages open.
