@@ -124,10 +124,10 @@
 - [x] Directly inspect the visible 404 state for `/research-sandbox`, `/source-status`, and `/responsible-use`.
 
 - [x] Audit and refine the site-wide visual button layout, hierarchy, sizing, and responsive behavior across retained routes.
-- [ ] Validate the updated button system on representative desktop and mobile pages, then publish and synchronize it to `nathancormier95-ai/Ontario-osint`.
+- [x] Validate the updated button system on representative desktop and mobile pages, then publish and synchronize it to `nathancormier95-ai/Ontario-osint`.
 
 - [x] Curate and verify additional official Ontario and Canadian sources for own-information and business/entity research, excluding person-targeting and other abuse-enabling workflows.
 - [x] Add the reviewed source entries, scope notes, and safe-use labels to the resource directory.
 - [x] Extend the visual button-system pass to the remaining retained-route direct controls, including assistant, popup, error, and template controls.
 - [x] Verify CRA charities, Canadian patent, and Facebook account-export source scopes directly before release.
-- [ ] Test the expanded directory, publish, and synchronize the resource update to `nathancormier95-ai/Ontario-osint`.
+- [x] Test the expanded directory, publish, and synchronize the resource update to `nathancormier95-ai/Ontario-osint`.
