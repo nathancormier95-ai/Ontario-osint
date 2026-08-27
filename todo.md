@@ -105,4 +105,4 @@
 
 - [x] Inventory every public, account-backed, safety, data, and support route for the main-page table of contents.
 - [x] Build a responsive, accessible, route-linked table of contents on the home page.
-- [ ] Validate home-page table-of-contents completeness on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
+- [x] Validate home-page table-of-contents completeness on desktop/mobile, publish, and push it to `nathancormier95-ai/Ontario-osint`.
