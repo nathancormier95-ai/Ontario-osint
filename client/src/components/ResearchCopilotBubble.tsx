@@ -26,9 +26,13 @@ export function isActiveCopilotBubbleSession(responseVersion: number, currentVer
   return responseVersion === currentVersion;
 }
 
+export function shouldOpenResearchCopilotFromSearch(search: string) {
+  return new URLSearchParams(search).get("copilot") === "open";
+}
+
 export function ResearchCopilotBubble() {
   const { isAuthenticated, user, loading } = useAuth();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(() => typeof window !== "undefined" && shouldOpenResearchCopilotFromSearch(window.location.search));
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<BubbleMessage[]>(createFreshCopilotBubbleSession);
   const sessionVersion = useRef(0);

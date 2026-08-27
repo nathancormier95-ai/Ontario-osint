@@ -15,3 +15,9 @@ After the final audit pass, the desktop page presents ten curated cards across f
 ## Mobile
 
 At `390×844`, the menu trigger remains visible, the fixed copilot control sits above the lower edge without obscuring the privacy routine, and the heading, exclusion boundary, and defensive-purpose copy remain readable. The compact icon-only bubble preserves the action while avoiding a mobile-width overlay.
+
+## Mobile popup state
+
+At `390×844` with the explicit copilot preview state, the dialog fits inside the viewport, exposes its close control in the header, preserves the assistant’s source-first safety notice, and keeps the three guided starter actions plus text entry visible. The panel intentionally overlays the page while open; closing it resets the in-memory session through the tested session-version guard.
+
+The phone-sized interaction check then activated the header close control. The dialog dismissed cleanly, returning focus and unobstructed access to the Privacy & Personal Security filters and ten resource cards; the compact copilot bubble remained available for a new, fresh session.

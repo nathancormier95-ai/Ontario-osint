@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { COPILOT_BUBBLE_STARTERS, createFreshCopilotBubbleSession, isActiveCopilotBubbleSession } from "./ResearchCopilotBubble";
+import { COPILOT_BUBBLE_STARTERS, createFreshCopilotBubbleSession, isActiveCopilotBubbleSession, shouldOpenResearchCopilotFromSearch } from "./ResearchCopilotBubble";
 
 describe("research copilot bubble", () => {
   it("offers only source-first Ontario research starters", () => {
@@ -21,5 +21,11 @@ describe("research copilot bubble", () => {
   it("drops a stale response after the popup session is closed and reset", () => {
     expect(isActiveCopilotBubbleSession(4, 4)).toBe(true);
     expect(isActiveCopilotBubbleSession(4, 5)).toBe(false);
+  });
+
+  it("opens only when the optional copilot URL flag is explicitly present", () => {
+    expect(shouldOpenResearchCopilotFromSearch("")).toBe(false);
+    expect(shouldOpenResearchCopilotFromSearch("?copilot=open")).toBe(true);
+    expect(shouldOpenResearchCopilotFromSearch("?copilot=closed")).toBe(false);
   });
 });
