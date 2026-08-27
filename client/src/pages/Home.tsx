@@ -110,6 +110,7 @@ const categoryBadgeStyles: Record<Resource["category"], string> = {
   Archives: "bg-[#a85c7c] text-[#fff2f7]",
   Property: "bg-[#bf6b4c] text-[#fff7ed]",
   Regulatory: "bg-[#748a3f] text-[#f7ffe7]",
+  "Self-service privacy": "bg-[#176c75] text-[#eefbf7]",
 };
 
 const visualAssets = {
@@ -300,7 +301,7 @@ export default function Home() {
               <span className="h-7 border-l border-[#4e8080]" />
               <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
                 <SheetTrigger asChild>
-                  <button type="button" className="inline-flex items-center gap-2 border border-[#89b9b4] bg-[#1b4a50] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#f0eee3] transition-colors hover:bg-[#25565b]" aria-label="Open site navigation">
+                  <button type="button" className="rail-button inline-flex items-center gap-2 border border-[#89b9b4] bg-[#1b4a50] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#f0eee3] hover:bg-[#25565b]" aria-label="Open site navigation">
                     <Menu className="h-4 w-4" /> Menu
                   </button>
                 </SheetTrigger>
@@ -318,7 +319,7 @@ export default function Home() {
                     {sectionNav.map(({ number, label, id, detail }) => {
                       const isCurrent = activeSection === id;
                       return (
-                        <button key={id} type="button" onClick={() => { navigateToSection(id); setMobileNavOpen(false); }} aria-current={isCurrent ? "page" : undefined} className={`flex items-center gap-3 border-l-2 px-3 py-4 text-left transition-colors ${isCurrent ? "border-[#d5c86d] bg-[#e4eee7] text-[#12393f]" : "border-transparent text-[#d4e4dd] hover:border-[#80b9b6] hover:bg-[#1c4a50]"}`}>
+                        <button key={id} type="button" onClick={() => { navigateToSection(id); setMobileNavOpen(false); }} aria-current={isCurrent ? "page" : undefined} className={`rail-button flex items-center gap-3 border-l-2 px-3 py-4 text-left ${isCurrent ? "border-[#d5c86d] bg-[#e4eee7] text-[#12393f]" : "border-transparent text-[#d4e4dd] hover:border-[#80b9b6] hover:bg-[#1c4a50]"}`}>
                           <span className={`font-mono text-[10px] ${isCurrent ? "text-[#0f5974]" : "text-[#83b5b0]"}`}>{number}</span>
                           <span className="min-w-0"><span className="block text-sm font-semibold leading-none">{label}</span><span className={`mt-1 block font-mono text-[8px] uppercase tracking-[0.12em] ${isCurrent ? "text-[#3d6668]" : "text-[#8eb9b4]"}`}>{detail}</span></span>
                           <ChevronRight className="ml-auto h-4 w-4" />
@@ -355,7 +356,7 @@ export default function Home() {
                   type="button"
                   onClick={() => navigateToSection(id)}
                   aria-current={isCurrent ? "page" : undefined}
-                  className={`group relative flex w-full items-center gap-3 border-l-2 px-3 py-3 text-left transition-all duration-200 ${isCurrent ? "border-[#d5c86d] bg-[#e4eee7] text-[#12393f] shadow-[4px_4px_0_rgba(4,20,23,0.2)]" : "border-transparent text-[#d4e4dd] hover:border-[#80b9b6] hover:bg-[#1c4a50] hover:text-white"}`}
+                  className={`rail-button group relative flex w-full items-center gap-3 border-l-2 px-3 py-3 text-left ${isCurrent ? "border-[#d5c86d] bg-[#e4eee7] text-[#12393f] shadow-[4px_4px_0_rgba(4,20,23,0.2)]" : "border-transparent text-[#d4e4dd] hover:border-[#80b9b6] hover:bg-[#1c4a50] hover:text-white"}`}
                 >
                   <span className={`font-mono text-[10px] ${isCurrent ? "text-[#0f5974]" : "text-[#83b5b0]"}`}>{number}</span>
                   <span className="min-w-0">
@@ -386,7 +387,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigateToSection("support")}
-              className="group flex w-full items-center justify-between border border-[#d5c86d] bg-[#d5c86d] px-4 py-3 text-left text-sm font-semibold text-[#14393d] transition-all hover:-translate-y-0.5 hover:bg-[#e4d77a] active:scale-[0.98]"
+              className="rail-button group flex w-full items-center justify-between border border-[#d5c86d] bg-[#d5c86d] px-4 py-3 text-left text-sm font-semibold text-[#14393d] hover:bg-[#e4d77a]"
             >
               Support the desk
               <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
@@ -426,7 +427,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => navigateToSection("workbench")}
-                    className="group inline-flex items-center justify-center gap-3 bg-[#0f5974] px-5 py-3.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#104b62] active:scale-[0.98]"
+                    className="primary-action group"
                   >
                     Open the workbench
                     <Compass className="h-4 w-4 transition-transform group-hover:rotate-12" />
@@ -434,7 +435,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => navigateToSection("sources")}
-                    className="inline-flex items-center justify-center gap-2 border-b border-[#315a5d] pb-1 text-sm font-semibold text-[#244f53] transition-colors hover:border-[#0f5974] hover:text-[#0f5974]"
+                    className="secondary-action"
                   >
                     Browse verified sources <ArrowDownRight className="h-4 w-4" />
                   </button>
@@ -490,14 +491,14 @@ export default function Home() {
                       {entries.map((section) => {
                         const item = tableOfContentsMeta[section.id];
                         return <li key={section.id} className="bg-[#fffdf8]">
-                          <button type="button" onClick={() => navigateToSection(section.id)} className="group flex h-full w-full flex-col p-5 text-left transition-colors hover:bg-[#edf5ef] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0f5974]">
+                          <button type="button" onClick={() => navigateToSection(section.id)} className="sitemap-action group flex h-full w-full flex-col p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0f5974]">
                             <div className="flex items-start justify-between gap-4">
                               <span className="font-mono text-[10px] font-semibold tracking-[0.14em] text-[#0f5974]">{section.number}</span>
                               <span className="border border-[#b8cbc3] bg-[#f2f6f0] px-2 py-1 font-mono text-[8px] font-semibold uppercase tracking-[0.12em] text-[#52716c]">{item.access}</span>
                             </div>
                             <h4 className="mt-7 font-display text-3xl leading-none tracking-[-0.045em] text-[#19383d]">{section.label}</h4>
                             <p className="mt-3 text-sm leading-6 text-[#596c67]">{item.offer}</p>
-                            <span className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#0f5974] underline decoration-[#8dacaa] underline-offset-4 transition-colors group-hover:text-[#123e50]">Open {section.label} <ArrowDownRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" /></span>
+                            <span className="route-cta inline-flex items-center gap-2 text-xs font-semibold text-[#0f5974] underline decoration-[#8dacaa] underline-offset-4 transition-colors group-hover:text-[#123e50]">Open {section.label} <ArrowDownRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" /></span>
                           </button>
                         </li>;
                       })}
@@ -528,7 +529,8 @@ export default function Home() {
                           key={value}
                           type="button"
                           onClick={() => setActiveTab(value as WorkbenchTab)}
-                          className={`mb-2 flex w-full items-start gap-3 px-3 py-3 text-left transition-all ${isActive ? "bg-[#dce9e5] text-[#0f5974] shadow-[3px_3px_0_rgba(15,89,116,0.14)]" : "text-[#52605d] hover:bg-[#eee8da]"}`}
+                          aria-pressed={isActive}
+                          className={`tool-tab mb-2 flex w-full items-start gap-3 px-3 py-3 text-left transition-all ${isActive ? "bg-[#dce9e5] text-[#0f5974] shadow-[3px_3px_0_rgba(15,89,116,0.14)]" : "text-[#52605d] hover:bg-[#eee8da]"}`}
                         >
                           <Icon className="mt-0.5 h-4 w-4 flex-none" />
                           <span>
@@ -679,7 +681,7 @@ export default function Home() {
                   <div className="flex min-h-[220px] flex-col justify-center bg-[#17393f] p-6 text-[#c5d2ca] sm:col-span-2">
                     <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#a8cac6]">No matching source</p>
                     <p className="mt-3 max-w-md font-display text-3xl leading-none text-[#f3f4eb]">Try a different filter combination.</p>
-                    <button type="button" onClick={() => { setResourceFilter("All"); setMunicipalityFilter("All municipalities"); }} className="mt-5 w-fit border border-[#c9eeeb] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#c9eeeb] hover:bg-[#c9eeeb] hover:text-[#17393f]">Clear filters</button>
+                    <button type="button" onClick={() => { setResourceFilter("All"); setMunicipalityFilter("All municipalities"); }} className="rail-button mt-5 w-fit border border-[#c9eeeb] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#c9eeeb] hover:bg-[#c9eeeb] hover:text-[#17393f]">Clear filters</button>
                   </div>
                 )}
               </div>

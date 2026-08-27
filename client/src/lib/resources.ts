@@ -6,7 +6,7 @@ export type Resource = {
   title: string;
   description: string;
   href: string;
-  category: "Public records" | "Legal" | "Open data" | "Archives" | "Property" | "Regulatory";
+  category: "Public records" | "Legal" | "Open data" | "Archives" | "Property" | "Regulatory" | "Self-service privacy";
   note: string;
   municipality?: "Toronto" | "Ottawa" | "Hamilton" | "Mississauga" | "Brampton";
 };
@@ -128,5 +128,85 @@ export const resources: Resource[] = [
     category: "Open data",
     note: "City of Brampton · public open-data hub",
     municipality: "Brampton",
+  },
+  {
+    title: "Canada’s Business Registries",
+    description:
+      "Find business information from participating official provincial, territorial, and federal registries, then confirm material details with the named registry.",
+    href: "https://ised-isde.canada.ca/cbr-rec/en/search",
+    category: "Public records",
+    note: "Official intergovernmental index · manual research only; automated copying or scraping is prohibited",
+  },
+  {
+    title: "Corporations Canada · Federal Corporation Search",
+    description:
+      "Confirm the existence and status of a corporation created under federal corporate law using the federal corporate registry.",
+    href: "https://ised-isde.canada.ca/cc/lgcy/fdrlCrpSrch.html",
+    category: "Public records",
+    note: "Federal corporations only · excludes provincial, financial, and foreign corporate laws",
+  },
+  {
+    title: "CRA List of Charities",
+    description:
+      "Review the Canada Revenue Agency’s public charity information and guidance for organization-level charity status research.",
+    href: "https://www.canada.ca/en/revenue-agency/services/charities-giving/list-charities.html",
+    category: "Public records",
+    note: "Official CRA resource · use for organization records, not personal profiling",
+  },
+  {
+    title: "Canadian Trademarks Database",
+    description:
+      "Search Canadian trademark applications and registrations to research a brand, product, or business identity before relying on public status information.",
+    href: "https://ised-isde.canada.ca/cipo/trademark-search/srch",
+    category: "Regulatory",
+    note: "Official CIPO database · search results are a reference, not legal advice",
+  },
+  {
+    title: "Canadian Patents Database",
+    description:
+      "Search laid-open patent applications and granted Canadian patents as an intellectual-property research starting point.",
+    href: "https://brevets-patents.ic.gc.ca/opic-cipo/cpd/eng/search/basic.html",
+    category: "Regulatory",
+    note: "Official CIPO database · record the publication number and status date",
+  },
+  {
+    title: "Ontario IPC · Access and Correction Rights",
+    description:
+      "Learn how to request access to or correction of your own personal information held by Ontario public-sector institutions and health information custodians.",
+    href: "https://www.ipc.on.ca/en/resources/information-individuals/access-and-correction-rights",
+    category: "Self-service privacy",
+    note: "Official Ontario privacy guidance · use only for your own records or a clearly authorized request",
+  },
+  {
+    title: "Privacy Commissioner of Canada · Access Your Information",
+    description:
+      "Understand how to request access to your own personal information held by many private-sector organizations under Canada’s federal privacy framework.",
+    href: "https://www.priv.gc.ca/en/privacy-topics/accessing-personal-information/api_bus/",
+    category: "Self-service privacy",
+    note: "Official federal privacy guidance · requests are ordinarily limited to your own information",
+  },
+  {
+    title: "Google Takeout · Your Account Data",
+    description:
+      "Create an archive of data from Google products you use for your own records, transfer, or account review.",
+    href: "https://support.google.com/accounts/answer/3024190?hl=en",
+    category: "Self-service privacy",
+    note: "Official account-owner export guidance · review archive contents before sharing",
+  },
+  {
+    title: "LinkedIn · Download Your Account Data",
+    description:
+      "Request a copy of information associated with your own LinkedIn account from the platform’s Settings and Privacy controls.",
+    href: "https://www.linkedin.com/help/linkedin/answer/a1339364/downloading-your-account-data",
+    category: "Self-service privacy",
+    note: "Official account-owner export guidance · do not use exports to profile other people",
+  },
+  {
+    title: "Facebook · Export Your Information",
+    description:
+      "Use Meta’s account controls to export a copy of information from your own Facebook account for personal review or retention.",
+    href: "https://www.facebook.com/help/212802592074644",
+    category: "Self-service privacy",
+    note: "Official account-owner export guidance · preserve others’ privacy when reviewing an archive",
   },
 ];

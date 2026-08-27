@@ -55,9 +55,35 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 .field-input { width: 100%; border: 1px solid #cfc7b8; border-radius: 0; background: #fffdf8; padding: 0.78rem 0.85rem; color: #183a3f; font-size: 0.92rem; outline: none; transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out), transform 160ms var(--ease-out); }
 .field-input::placeholder { color: #9ba49c; }
 .field-input:focus { border-color: #0f5974; box-shadow: 4px 4px 0 rgba(15, 89, 116, 0.14), 0 0 0 3px rgba(65, 166, 170, 0.14); transform: translateY(-1px); }
-.primary-action { display: inline-flex; align-items: center; gap: 0.65rem; background: linear-gradient(135deg, #0f5974 0%, #176f77 100%); padding: 0.78rem 1rem; color: white; font-size: 0.86rem; font-weight: 600; box-shadow: 4px 4px 0 rgba(15, 89, 116, 0.18); transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background-color 160ms var(--ease-out); }
+.primary-action, .secondary-action { position: relative; display: inline-flex; min-height: 2.9rem; align-items: center; justify-content: center; gap: 0.65rem; border: 1px solid transparent; padding: 0.78rem 1.15rem; font-size: 0.86rem; font-weight: 600; letter-spacing: 0.01em; transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out); }
+.primary-action { border-color: #0d526a; background: linear-gradient(135deg, #0f5974 0%, #176f77 100%); color: white; box-shadow: 4px 4px 0 rgba(15, 89, 116, 0.18); }
 .primary-action:hover { transform: translate(-2px, -2px); background: #104b62; box-shadow: 7px 7px 0 rgba(15, 89, 116, 0.13); }
-.primary-action:active { transform: scale(0.98); }
+.secondary-action { border-color: #7aa39d; background: rgba(255, 253, 248, 0.76); color: #0f5974; box-shadow: 3px 3px 0 rgba(15, 89, 116, 0.08); }
+.secondary-action:hover { transform: translate(-2px, -2px); border-color: #0f5974; background: #e8f1ed; box-shadow: 6px 6px 0 rgba(15, 89, 116, 0.11); }
+.primary-action:active, .secondary-action:active { transform: translate(0, 0) scale(0.98); }
+.tool-tab { position: relative; border-left: 3px solid transparent; }
+.tool-tab:hover { border-left-color: #8bad9f; }
+.tool-tab[aria-pressed="true"] { border-left-color: #0f5974; }
+.sitemap-action { position: relative; min-height: 16rem; border-left: 4px solid transparent; overflow: hidden; }
+.sitemap-action::after { position: absolute; right: 0; top: 0; height: 100%; width: 0.35rem; background: #d5c86d; content: ""; opacity: 0; transition: opacity 160ms var(--ease-out), width 160ms var(--ease-out); }
+.sitemap-action:hover { transform: translate(-3px, -3px); border-left-color: #0f5974; background: #edf5ef; box-shadow: 7px 7px 0 rgba(15, 89, 116, 0.13); }
+.sitemap-action:hover::after, .sitemap-action:focus-visible::after { width: 0.48rem; opacity: 1; }
+.sitemap-action .route-cta { margin-top: auto; padding-top: 1.5rem; }
+.rail-button { position: relative; min-height: 2.7rem; transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out); }
+.rail-button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 rgba(1, 24, 27, 0.23); }
+.rail-button:active { transform: scale(0.98); }
+[aria-label^="Filter"] > button { min-height: 2.5rem; box-shadow: 2px 2px 0 rgba(15, 89, 116, 0.08); transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out), background-color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+[aria-label^="Filter"] > button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 rgba(15, 89, 116, 0.12); }
+[aria-label^="Filter"] > button:active { transform: translate(0, 0) scale(0.98); }
+#ai-guide button:not([data-slot]) { min-height: 3.35rem; box-shadow: 3px 3px 0 rgba(15, 89, 116, 0.08); transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out), background-color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+#ai-guide button:not([data-slot]):hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 rgba(15, 89, 116, 0.12); }
+#ai-guide button:not([data-slot]):active { transform: translate(0, 0) scale(0.98); }
+[aria-label="Open Ontario Research Copilot"] { transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out), border-color 150ms var(--ease-out), background-color 150ms var(--ease-out) !important; }
+[aria-label="Open Ontario Research Copilot"]:hover { transform: translate(-2px, -2px) !important; border-color: #d5c86d !important; box-shadow: 8px 8px 0 rgba(7, 31, 35, 0.24) !important; }
+[role="dialog"] button:not([data-slot]):not([data-slot="dialog-close"]) { min-height: 2.5rem; box-shadow: 2px 2px 0 rgba(15, 89, 116, 0.08); transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out), background-color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+[role="dialog"] button:not([data-slot]):not([data-slot="dialog-close"]):hover { transform: translate(-1px, -1px); border-color: #0f5974; box-shadow: 4px 4px 0 rgba(15, 89, 116, 0.12); }
+[role="dialog"] button:not([data-slot]):not([data-slot="dialog-close"]):active { transform: translate(0, 0) scale(0.98); }
+@media (max-width: 639px) { .primary-action, .secondary-action { width: 100%; } .sitemap-action { min-height: 14rem; } }
 .animate-enter { animation: section-enter 220ms cubic-bezier(0.23, 1, 0.32, 1) both; }
 
 .hero-signal { position: relative; overflow: hidden; }
